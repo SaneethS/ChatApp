@@ -25,8 +25,8 @@
     <dimen name="login_screen_author_text_bottom">44dp</dimen>
     <dimen name="send_button_text">14sp</dimen>
     <dimen name="login_screen_edit_text_size">16sp</dimen>
-    <dimen name="login_screen_edit_text_padding_end">37dp</dimen>
-    <dimen name="login_screen_edit_text_padding_start">79dp</dimen>
+    <dimen name="login_screen_edit_text_padding_end">16dp</dimen>
+    <dimen name="login_screen_edit_text_padding_start">150dp</dimen>
     <dimen name="login_screen_edit_text_padding_top">10dp</dimen>
     <dimen name="login_screen_edit_text_padding_bottom">11dp</dimen>
     <dimen name="verify_screen_logo_start">128dp</dimen>

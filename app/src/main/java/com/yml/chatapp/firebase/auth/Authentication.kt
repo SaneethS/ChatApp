@@ -17,22 +17,22 @@ import java.util.concurrent.TimeUnit
 object Authentication {
 
     private var auth:FirebaseAuth = FirebaseAuth.getInstance()
+    var currentUser = auth.currentUser
 
-
-    private fun verifyUser(activity:Activity,
-                           phoneNo: String,callback: (Int) -> Unit) {
+   fun sendOtp(activity:Activity,
+                           phoneNo: String,callback: (Int, String?, PhoneAuthProvider.ForceResendingToken?) -> Unit) {
 
         val callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                callback(VERIFICATION_COMPLETE)
+                callback(VERIFICATION_COMPLETE, null, null)
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                callback(VERIFICATION_FAILED)
+                callback(VERIFICATION_FAILED, null, null)
             }
 
             override fun onCodeSent(verificationId : String, token: PhoneAuthProvider.ForceResendingToken) {
-                callback(CODE_SENT)
+                callback(CODE_SENT, verificationId, token)
             }
         }
         val options = PhoneAuthOptions.newBuilder()

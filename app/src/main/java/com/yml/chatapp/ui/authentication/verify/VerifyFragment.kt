@@ -1,20 +1,16 @@
 package com.yml.chatapp.ui.authentication.verify
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.yml.chatapp.R
 import com.yml.chatapp.databinding.FragmentVerifyBinding
 import com.yml.chatapp.ui.authentication.SharedViewModel
-import com.yml.chatapp.ui.home.HomeActivity
 
 class VerifyFragment: Fragment(R.layout.fragment_verify) {
     private lateinit var binding: FragmentVerifyBinding

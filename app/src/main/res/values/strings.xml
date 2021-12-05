@@ -8,4 +8,5 @@
     <string name="enter_sms_code">Enter sms code</string>
     <string name="edit_text_hint">------</string>
     <string name="done_text_button">Done</string>
+    <string name="enter_your_number_login_hint">Enter your number</string>
 </resources>
