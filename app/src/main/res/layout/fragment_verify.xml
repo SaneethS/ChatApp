@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/verify_app_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/verify_screen_logo_start"
+        android:layout_marginTop="@dimen/verify_screen_logo_top"
+        android:layout_marginEnd="@dimen/verify_screen_logo_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/verify_welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/verify_screen_welcome_text_start"
+        android:layout_marginTop="@dimen/verify_screen_welcome_text_top"
+        android:layout_marginEnd="@dimen/verify_screen_welcome_text_end"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/welcome_to_chatapp_verify"
+        android:textSize="@dimen/verify_screen_welcome_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verify_app_logo" />
+
+    <TextView
+        android:id="@+id/enter_sms_code_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/verify_screen_sms_text_view_start"
+        android:layout_marginTop="@dimen/verify_screen_sms_text_view_top"
+        android:layout_marginEnd="@dimen/verify_screen_sms_text_view_end"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/enter_sms_code"
+        android:textSize="@dimen/verify_screen_sms_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verify_welcome_text" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/verify_screen_edit_text_layout_start"
+        android:layout_marginTop="@dimen/verify_screen_edit_text_layout_top"
+        android:layout_marginEnd="@dimen/verify_screen_edit_text_layout_end"
+        android:background="@drawable/verify_text_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_sms_code_text">
+
+        <EditText
+            android:id="@+id/otp_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/verify_screen_edit_text_margin_start"
+            android:layout_marginTop="@dimen/verify_screen_edit_text_margin_top"
+            android:layout_marginEnd="@dimen/verify_screen_edit_text_margin_end"
+            android:layout_marginBottom="@dimen/verify_screen_edit_text_margin_bottom"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/edit_text_hint"
+            android:inputType="number"
+            android:letterSpacing="0.35"
+            android:maxLength="6"
+            android:textSize="@dimen/verify_screen_edit_text_size"/>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/verify_screen_button_start"
+        android:layout_marginTop="@dimen/verify_screen_button_top"
+        android:layout_marginEnd="@dimen/verify_screen_button_end"
+        android:background="@drawable/button_background"
+        android:text="@string/done_text_button"
+        android:textAllCaps="false"
+        android:textSize="@dimen/verify_screen_button_text_size"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

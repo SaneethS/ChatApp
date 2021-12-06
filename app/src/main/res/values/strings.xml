@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="welcome_to_chatapp">Welcome to ChatApp</string>
+    <string name="privacy_policy_text"><![CDATA[Read our Privacy Policy. Tap “Agree & Continue” to accept the Terms of Service.]]></string>
+    <string name="send_button_text">Send</string>
+    <string name="from_saneeth">From\nSaneeth</string>
+    <string name="welcome_to_chatapp_verify">Welcome to ChatApp</string>
+    <string name="enter_sms_code">Enter sms code</string>
+    <string name="edit_text_hint">------</string>
+    <string name="done_text_button">Done</string>
+    <string name="enter_your_number_login_hint">Enter your number</string>
 </resources>

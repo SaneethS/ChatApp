@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_screen_logo_start_constraint">129dp</dimen>
+    <dimen name="login_screen_logo_top_constraint">136dp</dimen>
+    <dimen name="login_screen_logo_bottom_constraint">43dp</dimen>
+    <dimen name="login_screen_logo_end_constraint">129dp</dimen>
+
+    <dimen name="welcome_text_size">24sp</dimen>
+
+    <dimen name="login_screen_text_start_constraint">51dp</dimen>
+    <dimen name="login_screen_text_top_constraint">43dp</dimen>
+    <dimen name="login_screen_text_end_constraint">52dp</dimen>
+    <dimen name="login_screen_text_bottom_constraint">36dp</dimen>
+    <dimen name="login_screen_edit_text_view_start_constraint">36dp</dimen>
+    <dimen name="login_screen_edit_text_view_end_constraint">36dp</dimen>
+    <dimen name="login_screen_edit_text_view_bottom_constraint">67dp</dimen>
+    <dimen name="login_screen_button_start">71dp</dimen>
+    <dimen name="login_screen_button_end">68dp</dimen>
+    <dimen name="login_screen_button_bottom">127dp</dimen>
+    <dimen name="login_privacy_text_start">35dp</dimen>
+    <dimen name="login_privacy_text_end">35dp</dimen>
+    <dimen name="login_privacy_text_bottom">52dp</dimen>
+    <dimen name="login_screen_author_text_start">146dp</dimen>
+    <dimen name="login_screen_author_text_end">149dp</dimen>
+    <dimen name="login_screen_author_text_bottom">44dp</dimen>
+    <dimen name="send_button_text">14sp</dimen>
+    <dimen name="login_screen_edit_text_size">16sp</dimen>
+    <dimen name="login_screen_edit_text_padding_end">16dp</dimen>
+    <dimen name="login_screen_edit_text_padding_start">150dp</dimen>
+    <dimen name="login_screen_edit_text_padding_top">10dp</dimen>
+    <dimen name="login_screen_edit_text_padding_bottom">11dp</dimen>
+    <dimen name="verify_screen_logo_start">128dp</dimen>
+    <dimen name="verify_screen_logo_top">81dp</dimen>
+    <dimen name="verify_screen_logo_end">130dp</dimen>
+    <dimen name="verify_screen_welcome_text_start">51dp</dimen>
+    <dimen name="verify_screen_welcome_text_top">42dp</dimen>
+    <dimen name="verify_screen_welcome_text_end">52dp</dimen>
+    <dimen name="verify_screen_sms_text_view_start">133dp</dimen>
+    <dimen name="verify_screen_sms_text_view_top">32dp</dimen>
+    <dimen name="verify_screen_sms_text_view_end">135dp</dimen>
+    <dimen name="verify_screen_edit_text_layout_start">88dp</dimen>
+    <dimen name="verify_screen_edit_text_layout_top">26dp</dimen>
+    <dimen name="verify_screen_edit_text_layout_end">89dp</dimen>
+    <dimen name="verify_screen_edit_text_margin_start">36dp</dimen>
+    <dimen name="verify_screen_edit_text_margin_top">3dp</dimen>
+    <dimen name="verify_screen_edit_text_margin_end">37dp</dimen>
+    <dimen name="verify_screen_edit_text_margin_bottom">3dp</dimen>
+    <dimen name="verify_screen_button_start">70dp</dimen>
+    <dimen name="verify_screen_button_top">90dp</dimen>
+    <dimen name="verify_screen_button_end">69dp</dimen>
+    <dimen name="verify_screen_welcome_text_size">24sp</dimen>
+    <dimen name="verify_screen_sms_text_size">14sp</dimen>
+    <dimen name="verify_screen_edit_text_size">26sp</dimen>
+    <dimen name="verify_screen_button_text_size">14sp</dimen>
+
+
+</resources>

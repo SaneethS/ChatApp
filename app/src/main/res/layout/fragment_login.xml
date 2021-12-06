@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="117dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="@dimen/login_screen_logo_start_constraint"
+        android:layout_marginTop="@dimen/login_screen_logo_top_constraint"
+        android:layout_marginEnd="@dimen/login_screen_logo_end_constraint"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_screen_text_start_constraint"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="@dimen/login_screen_text_end_constraint"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/welcome_to_chatapp"
+        android:textSize="@dimen/welcome_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
+
+    <FrameLayout
+        android:id="@+id/text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_screen_edit_text_view_start_constraint"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="@dimen/login_screen_edit_text_view_end_constraint"
+        android:background="@drawable/login_text_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/country_code_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.hbb20.CountryCodePicker>
+
+        <EditText
+            android:id="@+id/phone_number_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_screen_edit_text_padding_start"
+            android:background="@null"
+            android:hint="@string/enter_your_number_login_hint"
+            android:inputType="phone"
+            android:paddingTop="@dimen/login_screen_edit_text_padding_top"
+            android:paddingEnd="@dimen/login_screen_edit_text_padding_end"
+            android:paddingBottom="@dimen/login_screen_edit_text_padding_bottom"
+            android:textSize="@dimen/login_screen_edit_text_size" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/send_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_screen_button_start"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="@dimen/login_screen_button_end"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/send_button_text"
+        android:textAllCaps="false"
+        android:textSize="@dimen/send_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view"/>
+
+    <TextView
+        android:id="@+id/privacy_policy_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_privacy_text_start"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/login_privacy_text_end"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_medium"
+
+        android:gravity="center"
+        android:text="@string/privacy_policy_text"
+        app:layout_constraintBottom_toTopOf="@+id/from_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/send_button"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/from_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/login_screen_author_text_bottom"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="@string/from_saneeth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
