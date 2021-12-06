@@ -9,6 +9,8 @@ import com.yml.chatapp.common.CODE_SENT
 import com.yml.chatapp.common.VERIFICATION_COMPLETE
 import com.yml.chatapp.common.VERIFICATION_FAILED
 import com.yml.chatapp.firebase.auth.Authentication
+import com.yml.chatapp.firebase.firestore.FirebaseUserDB
+import com.yml.chatapp.ui.wrapper.User
 
 class LoginViewModel: ViewModel() {
     lateinit var storedVerificationId:String

@@ -9,6 +9,7 @@ import com.yml.chatapp.R
 import com.yml.chatapp.databinding.FragmentLoginBinding
 import com.yml.chatapp.ui.authentication.SharedViewModel
 import com.yml.chatapp.ui.authentication.verify.VerifyFragment
+import com.yml.chatapp.ui.wrapper.User
 
 class LoginFragment: Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding

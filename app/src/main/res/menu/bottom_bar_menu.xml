@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/single_chat"
+        android:title="@string/chats_bottom_bar"
+        android:icon="@drawable/single_chat_icon">
+    </item>
+
+    <item
+        android:id="@+id/group_chat"
+        android:title="@string/groups_bottom_bar"
+        android:icon="@drawable/group_chat_icon">
+    </item>
+</menu>

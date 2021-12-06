@@ -37,7 +37,7 @@ class VerifyFragment: Fragment(R.layout.fragment_verify) {
                 val credentials:PhoneAuthCredential = PhoneAuthProvider.getCredential(
                     storedVerificationId, otp
                 )
-                verifyViewModel.loginWithCredentials(credentials)
+                context?.let { it1 -> verifyViewModel.loginWithCredentials(it1,credentials) }
             }else{
                 Toast.makeText(requireContext(), "Enter the otp", Toast.LENGTH_SHORT).show()
             }
@@ -48,7 +48,6 @@ class VerifyFragment: Fragment(R.layout.fragment_verify) {
         verifyViewModel.loginStatus.observe(viewLifecycleOwner) {
             if(it) {
                 sharedViewModel.setGoToHomeActivity(true)
-                Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
             }else {
                 Toast.makeText(requireContext(),"Invalid OTP",Toast.LENGTH_SHORT).show()
             }
