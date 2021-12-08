@@ -59,6 +59,7 @@
             android:background="@null"
             android:hint="@string/enter_your_number_login_hint"
             android:inputType="phone"
+            android:textColor="@color/black"
             android:paddingTop="@dimen/login_screen_edit_text_padding_top"
             android:paddingEnd="@dimen/login_screen_edit_text_padding_end"
             android:paddingBottom="@dimen/login_screen_edit_text_padding_bottom"

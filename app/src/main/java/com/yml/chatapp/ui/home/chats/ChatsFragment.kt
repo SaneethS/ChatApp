@@ -41,6 +41,7 @@ class ChatsFragment: Fragment(R.layout.fragment_chat) {
             override fun onItemClick(position: Int) {
                 val sendUser = userList[position]
                 val intent = Intent(requireContext(), ChatMessageActivity::class.java)
+                intent.putExtra("currentUser",currentUser)
                 intent.putExtra("sendUser",sendUser)
                 startActivity(intent)
             }

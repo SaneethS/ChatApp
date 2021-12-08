@@ -15,6 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/foreign_user_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_toEndOf="@+id/back_button"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/circular_image"/>
+
         <ImageView
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
@@ -22,18 +32,18 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"/>
+            android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
             android:id="@+id/send_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/back_button"
+            android:layout_toEndOf="@id/foreign_user_image"
             android:fontFamily="@font/pt_sans"
-            android:text="Name"
+            android:text="@string/name_chat_window_top_bar"
             android:textSize="21sp" />
     </RelativeLayout>
 
@@ -44,21 +54,21 @@
         android:layout_marginEnd="11dp"
         android:background="@drawable/message_text_layout"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/send_button"
         app:layout_constraintStart_toStartOf="@+id/guideline3">
 
         <EditText
             android:id="@+id/type_message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="8dp"
+            android:layout_toStartOf="@id/camera_image"
             android:background="@null"
             android:fontFamily="@font/pt_sans"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/camera_image"
-            android:hint="Type a Message"
+            android:hint="@string/type_a_message_chat_window"
             android:textColorHint="@color/text_grey"
             android:textSize="20sp" />
 
@@ -74,7 +84,7 @@
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/send_button"
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginEnd="10dp"
@@ -83,6 +93,16 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/relativeLayout2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

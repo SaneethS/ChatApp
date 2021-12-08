@@ -69,6 +69,7 @@
             android:background="@null"
             android:gravity="center"
             android:hint="@string/edit_text_hint"
+            android:textColor="@color/black"
             android:inputType="number"
             android:letterSpacing="0.35"
             android:maxLength="6"
