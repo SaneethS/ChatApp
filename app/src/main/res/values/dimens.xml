@@ -53,6 +53,8 @@
     <dimen name="verify_screen_edit_text_size">26sp</dimen>
     <dimen name="verify_screen_button_text_size">14sp</dimen>
     <dimen name="splash_screen_margin_text_icon">8dp</dimen>
+    <dimen name="user_list_status_size">17sp</dimen>
+    <dimen name="user_list_text_size">21sp</dimen>
 
 
 </resources>

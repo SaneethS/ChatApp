@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.8" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -76,8 +76,13 @@
         android:id="@+id/name_text_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:hint="@string/enter_your_name_profile"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        android:textColor="@color/white_shade"
+        android:ems="10"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_box"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -86,8 +91,6 @@
         android:id="@+id/save_button_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/profile_save_button"
@@ -96,5 +99,21 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+    <EditText
+        android:id="@+id/status_text_profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_box"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/status_text_in_profile_screen"
+        android:textColor="@color/white_shade"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toBottomOf="@+id/name_text_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

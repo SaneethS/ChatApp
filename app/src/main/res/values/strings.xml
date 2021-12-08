@@ -16,4 +16,7 @@
     <string name="logout_text_toolbar">Logout</string>
     <string name="enter_your_name_profile">Enter your name</string>
     <string name="profile_save_button">Save</string>
+    <string name="status_text_in_profile_screen">Status</string>
+    <string name="name_from_user_list">Name</string>
+    <string name="status_text_user_list">Status</string>
 </resources>

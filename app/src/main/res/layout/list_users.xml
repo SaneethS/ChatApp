@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/user_list_border"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circular_image" />
+
+        <TextView
+            android:id="@+id/list_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_toEndOf="@id/user_image"
+            android:fontFamily="@font/pt_sans"
+            android:text="@string/name_from_user_list"
+            android:textColor="@color/user_text_color"
+            android:textSize="@dimen/user_list_text_size" />
+
+        <TextView
+            android:id="@+id/list_user_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_user_name"
+            android:layout_alignStart="@+id/list_user_name"
+            android:fontFamily="@font/pt_sans"
+            android:text="@string/status_text_user_list"
+            android:textColor="@color/user_status_color"
+            android:textSize="@dimen/user_list_status_size" />
+    </RelativeLayout>
+</RelativeLayout>

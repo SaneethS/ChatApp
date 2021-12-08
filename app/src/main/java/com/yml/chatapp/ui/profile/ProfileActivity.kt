@@ -34,7 +34,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun editProfile() {
         val name = binding.nameTextProfile.text.toString().trim()
-        val user = User(currentUser.phoneNo, currentUser.fUid, name)
+        val status = binding.statusTextProfile.text.toString().trim()
+        val user = User(currentUser.phoneNo, currentUser.fUid, name, status)
         profileViewModel.updateUserData(user)
     }
 
@@ -55,7 +56,9 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setUserDetails() {
         val name:EditText = binding.nameTextProfile
+        val status:EditText = binding.statusTextProfile
 
         name.setText(currentUser.name)
+        status.setText(currentUser.status)
     }
 }

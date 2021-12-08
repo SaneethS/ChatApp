@@ -6,8 +6,9 @@ object Util {
 
     fun userInfoFromHashMap(user: HashMap<*,*>): DbUser {
         return DbUser(
-            user["phoneNo"].toString(),
-            user["name"].toString()
+            phoneNo = user["phoneNo"].toString(),
+            name = user["name"].toString(),
+            status = user["status"].toString()
         )
     }
 }
