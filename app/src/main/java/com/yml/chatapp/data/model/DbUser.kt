@@ -1,6 +1,7 @@
 package com.yml.chatapp.data.model
 
 data class DbUser(
-    val mobileNo: String,
-    val name: String = ""
+    val phoneNo: String,
+    val name: String = "",
+    val status: String = ""
 )

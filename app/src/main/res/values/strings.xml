@@ -9,4 +9,14 @@
     <string name="edit_text_hint">------</string>
     <string name="done_text_button">Done</string>
     <string name="enter_your_number_login_hint">Enter your number</string>
+    <string name="chatapp_splash_screen">ChatApp</string>
+    <string name="chats_bottom_bar">Chats</string>
+    <string name="groups_bottom_bar">Groups</string>
+    <string name="profile_text_toolbar">Profile</string>
+    <string name="logout_text_toolbar">Logout</string>
+    <string name="enter_your_name_profile">Enter your name</string>
+    <string name="profile_save_button">Save</string>
+    <string name="status_text_in_profile_screen">Status</string>
+    <string name="name_from_user_list">Name</string>
+    <string name="status_text_user_list">Status</string>
 </resources>

@@ -9,4 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#1EBE71</color>
     <color name="white_shade">#FCFCFC</color>
+    <color name="dark_grey">#555555</color>
+    <color name="chatapp_primary">#0CA996</color>
+    <color name="chat_app_bg_color">#101D25</color>
+    <color name="tool_bar_color">#232D36</color>
+    <color name="text_grey">#9DA5AC</color>
+    <color name="user_text_color">#D3DAE0</color>
+    <color name="user_status_color">#939CA1</color>
 </resources>
