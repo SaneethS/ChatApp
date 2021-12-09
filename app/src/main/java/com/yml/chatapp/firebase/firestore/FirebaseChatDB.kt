@@ -5,7 +5,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.yml.chatapp.common.CHATS
 import com.yml.chatapp.common.MESSAGES
-import com.yml.chatapp.data.model.DbMessage
 import com.yml.chatapp.ui.wrapper.Message
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose

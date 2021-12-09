@@ -48,7 +48,8 @@
         <com.hbb20.CountryCodePicker
             android:id="@+id/country_code_picker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:ccp_contentColor="@color/white">
         </com.hbb20.CountryCodePicker>
 
         <EditText
@@ -112,6 +113,6 @@
         android:text="@string/from_saneeth"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

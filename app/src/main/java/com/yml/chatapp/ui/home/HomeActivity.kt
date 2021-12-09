@@ -72,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.logout_button -> {
                 homeViewModel.logOut(this@HomeActivity)
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("showSplash", false)
                 startActivity(intent)
                 finish()
             }
