@@ -54,7 +54,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun editProfile() {
         val name = binding.nameTextProfile.text.toString().trim()
         val status = binding.statusTextProfile.text.toString().trim()
-        val user = User(currentUser.phoneNo, currentUser.fUid, name, status, currentUser.image)
+        val user = User(currentUser.phoneNo, currentUser.fUid, name, status, downloadUri)
         profileViewModel.updateUserData(user)
     }
 
@@ -74,9 +74,7 @@ class ProfileActivity : AppCompatActivity() {
 
         profileViewModel.setProfileStatus.observe(this@ProfileActivity) {
             downloadUri = it.toString()
-            Log.i("ProfileActivity","$downloadUri")
             Glide.with(this).load(downloadUri).into(binding.imageView)
-            currentUser.image = downloadUri
         }
     }
 
