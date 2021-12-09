@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_screen_logo_start_constraint">129dp</dimen>
-    <dimen name="login_screen_logo_top_constraint">136dp</dimen>
+    <dimen name="login_screen_logo_top_constraint">81dp</dimen>
     <dimen name="login_screen_logo_bottom_constraint">43dp</dimen>
     <dimen name="login_screen_logo_end_constraint">129dp</dimen>
 
