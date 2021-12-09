@@ -1,7 +1,5 @@
 package com.yml.chatapp.ui.wrapper
 
-import java.util.*
-
 data class Message (
     val senderId: String,
     val receiverId: String,
