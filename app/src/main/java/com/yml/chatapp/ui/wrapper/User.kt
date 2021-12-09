@@ -7,5 +7,6 @@ data class User(
     val fUid: String = "",
     var name: String = "",
     var status: String = "",
+    val image: String = "",
     val isNewUser: Boolean = false
 ): Serializable

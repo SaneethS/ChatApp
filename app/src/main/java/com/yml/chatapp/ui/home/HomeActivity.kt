@@ -21,7 +21,7 @@ import com.yml.chatapp.ui.wrapper.User
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
-    private var currentUser: User = User("","","")
+    private var currentUser: User = User("","","",image = "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

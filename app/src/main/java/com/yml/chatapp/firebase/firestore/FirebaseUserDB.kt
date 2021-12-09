@@ -19,9 +19,9 @@ class FirebaseUserDB {
 
     fun setUserToDb(user: User, callback: (Boolean) -> Unit) {
         val userDetails:DbUser = if(user.name.isEmpty()){
-            DbUser(user.phoneNo, user.phoneNo, user.status)
+            DbUser(user.phoneNo, user.phoneNo, user.status, user.image)
         }else{
-            DbUser(user.phoneNo, user.name, user.status)
+            DbUser(user.phoneNo, user.name, user.status, user.image)
         }
 
         fireStore.collection(USERS).document(user.fUid).set(userDetails).addOnCompleteListener {
