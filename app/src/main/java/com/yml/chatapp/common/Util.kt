@@ -8,7 +8,8 @@ object Util {
         return DbUser(
             phoneNo = user["phoneNo"].toString(),
             name = user["name"].toString(),
-            status = user["status"].toString()
+            status = user["status"].toString(),
+            image = user["image"].toString()
         )
     }
 }

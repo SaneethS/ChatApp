@@ -1,10 +1,13 @@
 package com.yml.chatapp.ui.profile
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.yml.chatapp.R
 import com.yml.chatapp.databinding.ActivityProfileBinding
 import com.yml.chatapp.ui.home.HomeActivity
@@ -13,7 +16,9 @@ import com.yml.chatapp.ui.wrapper.User
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
-    private var currentUser: User = User("", "", "")
+    private var currentUser: User = User("", "", "",image = "")
+    private  lateinit var imageUri: Uri
+    private lateinit var downloadUri: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +35,26 @@ class ProfileActivity : AppCompatActivity() {
         binding.saveButtonProfile.setOnClickListener {
             editProfile()
         }
+        binding.imageView.setOnClickListener {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, 100)
+        }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            imageUri = data?.data!!
+            binding.imageView.setImageURI(imageUri)
+            profileViewModel.setUserProfile(imageUri)
+        }
+    }
     private fun editProfile() {
         val name = binding.nameTextProfile.text.toString().trim()
         val status = binding.statusTextProfile.text.toString().trim()
-        val user = User(currentUser.phoneNo, currentUser.fUid, name, status)
+        val user = User(currentUser.phoneNo, currentUser.fUid, name, status,downloadUri)
         profileViewModel.updateUserData(user)
     }
 
@@ -51,6 +70,11 @@ class ProfileActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+
+        profileViewModel.setProfileStatus.observe(this@ProfileActivity) {
+            downloadUri = it.toString()
+            Glide.with(this).load(downloadUri).into(binding.imageView)
         }
     }
 

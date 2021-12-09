@@ -21,7 +21,7 @@ class ChatsFragment: Fragment(R.layout.fragment_chat) {
     private lateinit var binding: FragmentChatBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
-    private var currentUser:User = User("","","","")
+    private var currentUser:User = User("","","","",image = "")
     private lateinit var chatListAdapter: ChatListAdapter
     private var userList = ArrayList<User>()
 
