@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_screen_logo_start_constraint">129dp</dimen>
-    <dimen name="login_screen_logo_top_constraint">136dp</dimen>
+    <dimen name="login_screen_logo_top_constraint">81dp</dimen>
     <dimen name="login_screen_logo_bottom_constraint">43dp</dimen>
     <dimen name="login_screen_logo_end_constraint">129dp</dimen>
 
@@ -55,6 +55,12 @@
     <dimen name="splash_screen_margin_text_icon">8dp</dimen>
     <dimen name="user_list_status_size">17sp</dimen>
     <dimen name="user_list_text_size">21sp</dimen>
+    <dimen name="receive_chat_layout_textsize">14sp</dimen>
+    <dimen name="receive_chat_layout_padding">10dp</dimen>
+    <dimen name="receive_chat_layout_margin_bottom">3dp</dimen>
+    <dimen name="send_chat_layout_text_size">14sp</dimen>
+    <dimen name="send_chat_layout_padding">10dp</dimen>
+    <dimen name="send_chat_layout_bottom_margin">3dp</dimen>
 
 
 </resources>

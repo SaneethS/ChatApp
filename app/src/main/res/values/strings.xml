@@ -19,4 +19,8 @@
     <string name="status_text_in_profile_screen">Status</string>
     <string name="name_from_user_list">Name</string>
     <string name="status_text_user_list">Status</string>
+    <string name="receive_chat_layout_text">receive</string>
+    <string name="send_chat_layout_text">send</string>
+    <string name="type_a_message_chat_window">Type a Message</string>
+    <string name="name_chat_window_top_bar">Name</string>
 </resources>

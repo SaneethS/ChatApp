@@ -62,7 +62,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="144dp"
         android:layout_height="144dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:srcCompat="@drawable/camera_icon" />
+        android:src="@drawable/camera_icon" />
 
     <EditText
         android:id="@+id/name_text_profile"

@@ -7,3 +7,6 @@ const val CODE_SENT = 2
 const val USERS = "users"
 
 const val USER_ID = "userId"
+
+const val CHATS = "chats"
+const val MESSAGES = "messages"
