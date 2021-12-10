@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/foreign_user_image"
+            android:id="@+id/group_image"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
@@ -35,13 +35,13 @@
             android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
-            android:id="@+id/send_user_name"
+            android:id="@+id/group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/foreign_user_image"
+            android:layout_toEndOf="@id/group_image"
             android:fontFamily="@font/pt_sans"
             android:text="@string/name_chat_window_top_bar"
             android:textSize="21sp" />
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toEndOf="@+id/relativeLayout2" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_recycler_view"
+        android:id="@+id/group_message_recycler_view"
         android:layout_height="0dp"
         android:layout_width="0dp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"

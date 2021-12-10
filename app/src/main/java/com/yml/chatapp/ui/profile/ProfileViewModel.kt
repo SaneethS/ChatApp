@@ -24,20 +24,24 @@ class ProfileViewModel: ViewModel() {
     val getUserDataStatus = _getUserDataStatus as LiveData<User>
 
     fun updateUserData(user: User) {
-        FirebaseUserDB.getInstance().updateUserInDb(user) {
-            if(it) {
-                _updateUserDataStatus.value = it
+        viewModelScope.launch {
+            FirebaseUserDB.getInstance().updateUserInDb(user).let {
+                if(it) {
+                    _updateUserDataStatus.value = it
+                }
             }
         }
     }
 
     fun getUserData(context: Context) {
-        val userId = SharedPref.getInstance(context).getUserId()
-        Log.i("HomeData", "user = $userId")
-        if (userId != null) {
-            FirebaseUserDB.getInstance().getUserFromDb(userId) {
-                if(it != null) {
-                    _getUserDataStatus.value = it
+        viewModelScope.launch {
+            val userId = SharedPref.getInstance(context).getUserId()
+            Log.i("HomeData", "user = $userId")
+            if (userId != null) {
+                FirebaseUserDB.getInstance().getUserFromDb(userId).let {
+                    if(it != null) {
+                        _getUserDataStatus.value = it
+                    }
                 }
             }
         }

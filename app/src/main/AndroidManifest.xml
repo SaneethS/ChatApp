@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
         <activity
+            android:name=".ui.home.groups.chat.GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.groups.participants.ParticipantsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.chats.message.ChatMessageActivity"
             android:exported="false" />
         <activity
@@ -21,7 +27,7 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.authentication.MainActivity"
             android:exported="true">

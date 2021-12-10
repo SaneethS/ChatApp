@@ -10,11 +10,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ChatMessageViewModel: ViewModel() {
+class ChatMessageViewModel(val senderId: String, val receiverId: String): ViewModel() {
     var messageList = ArrayList<Message>()
 
     private val _getChatsStatus = MutableLiveData<Boolean>()
     val getChatStatus = _getChatsStatus as LiveData<Boolean>
+
+    init {
+        getChatFromDb(senderId, receiverId)
+    }
 
     fun sendTextMessage(senderId: String, receiverId: String, message: String) {
         viewModelScope.launch {

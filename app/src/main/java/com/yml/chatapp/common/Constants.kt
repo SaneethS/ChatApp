@@ -10,3 +10,9 @@ const val USER_ID = "userId"
 
 const val CHATS = "chats"
 const val MESSAGES = "messages"
+
+const val GROUPS = "groups"
+
+
+//view
+const val GROUP = "group"

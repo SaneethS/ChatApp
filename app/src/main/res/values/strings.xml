@@ -23,4 +23,8 @@
     <string name="send_chat_layout_text">send</string>
     <string name="type_a_message_chat_window">Type a Message</string>
     <string name="name_chat_window_top_bar">Name</string>
+    <string name="please_enter_your_group_name">Please Enter Your Group Name</string>
+    <string name="save_group_name">Save</string>
+    <string name="group_name_text_top_bar">Group Name</string>
+    <string name="select_paticipants_text">Select Paticipants</string>
 </resources>

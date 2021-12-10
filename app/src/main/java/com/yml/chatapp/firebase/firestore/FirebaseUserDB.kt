@@ -6,6 +6,7 @@ import com.yml.chatapp.common.USERS
 import com.yml.chatapp.common.Util
 import com.yml.chatapp.data.model.DbUser
 import com.yml.chatapp.ui.wrapper.User
+import kotlinx.coroutines.flow.callbackFlow
 import kotlin.coroutines.suspendCoroutine
 
 class FirebaseUserDB {
@@ -17,76 +18,102 @@ class FirebaseUserDB {
         fun getInstance(): FirebaseUserDB = instance ?: FirebaseUserDB()
     }
 
-    fun setUserToDb(user: User, callback: (Boolean) -> Unit) {
-        val userDetails:DbUser = if(user.name.isEmpty()){
+    suspend fun setUserToDb(user: User): Boolean {
+        val userDetails: DbUser = if (user.name.isEmpty()) {
             DbUser(user.phoneNo, user.phoneNo, user.status, user.image)
-        }else{
+        } else {
             DbUser(user.phoneNo, user.name, user.status, user.image)
         }
-
-        fireStore.collection(USERS).document(user.fUid).set(userDetails).addOnCompleteListener {
-            if(it.isSuccessful) {
-                callback(true)
-            }else {
-                callback(false)
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).document(user.fUid).set(userDetails).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback.resumeWith(Result.success(true))
+                } else {
+                    callback.resumeWith(
+                        Result.failure(
+                            it.exception ?: Exception("Something went wrong")
+                        )
+                    )
+                }
             }
         }
     }
 
-    fun getUserFromDb(userId:String, callback: (User?) -> Unit) {
-        fireStore.collection(USERS).document(userId).get()
-            .addOnCompleteListener {    task ->
-                if(task.isSuccessful) {
-                    task.result.also {
-                        val dbUser = Util.userInfoFromHashMap(it?.data as HashMap<*, *>)
-                        val user = User(phoneNo = dbUser.phoneNo,
-                                    fUid = userId,
-                                    name = dbUser.name,
-                                    status = dbUser.status)
-                        callback(user)
+    suspend fun getUserFromDb(userId: String): User? {
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).document(userId).get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        task.result.also {
+                            val dbUser = Util.userInfoFromHashMap(it?.data as HashMap<*, *>)
+                            val user = User(
+                                phoneNo = dbUser.phoneNo,
+                                fUid = userId,
+                                name = dbUser.name,
+                                status = dbUser.status,
+                                image = dbUser.image
+                            )
+                            callback.resumeWith(Result.success(user))
+                        }
+                    } else {
+                        callback.resumeWith(
+                            Result.failure(
+                                task.exception ?: Exception("Something went wrong")
+                            )
+                        )
                     }
-                }else{
-                    callback(null)
                 }
-            }
+        }
     }
 
-    fun updateUserInDb(user: User, callback: (Boolean) -> Unit) {
+    suspend fun updateUserInDb(user: User): Boolean {
         val userMap = mapOf(
             "name" to user.name,
             "status" to user.status
         )
-
-        fireStore.collection(USERS).document(user.fUid).update(userMap)
-            .addOnCompleteListener {
-                if(it.isSuccessful) {
-                    callback(true)
-                }else{
-                    callback(false)
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).document(user.fUid).update(userMap)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        callback.resumeWith(Result.success(true))
+                    } else {
+                        callback.resumeWith(
+                            Result.failure(
+                                it.exception ?: Exception("Something went wrong")
+                            )
+                        )
+                    }
                 }
-            }
+        }
     }
 
-    fun getUserListFromDb(callback: (ArrayList<User>?) -> Unit) {
-        fireStore.collection(USERS).get().addOnCompleteListener { task->
-            if(task.isSuccessful) {
-                val userList = ArrayList<User>()
-                val dataSnapshot = task.result
+    suspend fun getUserListFromDb(): ArrayList<User>? {
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userList = ArrayList<User>()
+                    val dataSnapshot = task.result
 
-                if (dataSnapshot != null) {
-                    for(item in  dataSnapshot.documents){
-                        val userHashMap = item.data as HashMap<*,*>
-                        val user = User(
-                            name = userHashMap["name"].toString(),
-                            phoneNo = userHashMap["phoneNo"].toString(),
-                            status = userHashMap["status"].toString(),
-                            fUid = item.id
-                        )
-                        userList.add(user)
+                    if (dataSnapshot != null) {
+                        for (item in dataSnapshot.documents) {
+                            val userHashMap = item.data as HashMap<*, *>
+                            val user = User(
+                                name = userHashMap["name"].toString(),
+                                phoneNo = userHashMap["phoneNo"].toString(),
+                                status = userHashMap["status"].toString(),
+                                fUid = item.id,
+                                image = userHashMap["image"].toString()
+                            )
+                            userList.add(user)
+                        }
+                        callback.resumeWith(Result.success(userList))
                     }
-                    callback(userList)
                 }else {
-                    callback(null)
+                    callback.resumeWith(
+                        Result.failure(
+                            task.exception ?: Exception("Something went wrong")
+                        )
+                    )
                 }
             }
         }
