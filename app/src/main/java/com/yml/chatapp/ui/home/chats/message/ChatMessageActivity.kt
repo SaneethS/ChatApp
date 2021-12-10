@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yml.chatapp.databinding.ActivityChatMessageBinding
 import com.yml.chatapp.ui.wrapper.User
+import com.yml.chatapp.viewmodelfactory.ViewModelFactory
 
 class ChatMessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatMessageBinding
@@ -21,12 +22,13 @@ class ChatMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        chatMessageViewModel =
-            ViewModelProvider(this@ChatMessageActivity)[ChatMessageViewModel::class.java]
         currentUser = intent.getSerializableExtra("currentUser") as User
         foreignUser = intent.getSerializableExtra("sendUser") as User
+        chatMessageViewModel =
+            ViewModelProvider(this@ChatMessageActivity, ViewModelFactory(
+                ChatMessageViewModel(currentUser!!.fUid, foreignUser!!.fUid)
+            ))[ChatMessageViewModel::class.java]
         binding.sendUserName.text = foreignUser!!.name
-        chatMessageViewModel.getChatFromDb(currentUser!!.fUid, foreignUser!!.fUid)
         sendMessage()
         initRecyclerView()
         allListeners()

@@ -14,10 +14,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/whatsapp_user" />
+            android:src="@drawable/whatsapp_group_user" />
 
         <TextView
-            android:id="@+id/list_user_name"
+            android:id="@+id/list_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
@@ -26,16 +26,5 @@
             android:text="@string/name_from_user_list"
             android:textColor="@color/user_text_color"
             android:textSize="@dimen/user_list_text_size" />
-
-        <TextView
-            android:id="@+id/list_user_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/list_user_name"
-            android:layout_alignStart="@+id/list_user_name"
-            android:fontFamily="@font/pt_sans"
-            android:text="@string/status_text_user_list"
-            android:textColor="@color/user_status_color"
-            android:textSize="@dimen/user_list_status_size" />
     </RelativeLayout>
 </RelativeLayout>

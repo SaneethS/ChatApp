@@ -32,7 +32,6 @@ class FirebaseChatDB {
         val chatId = chatId(senderId, receiverId)
         val dbMessage = Message(
             senderId,
-            receiverId,
             message,
             "text",
             System.currentTimeMillis()
@@ -69,7 +68,6 @@ class FirebaseChatDB {
                                 val data = item.data as HashMap<*,*>
                                 val message = Message(
                                     senderId = data["senderId"].toString(),
-                                    receiverId = data["receiverId"].toString(),
                                     dateCreated = data["dateCreated"] as Long,
                                     content = data["content"].toString(),
                                     contentType = data["contentType"].toString()
