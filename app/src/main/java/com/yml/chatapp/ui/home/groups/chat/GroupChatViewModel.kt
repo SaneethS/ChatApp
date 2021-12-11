@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yml.chatapp.data.repository.Repository
 import com.yml.chatapp.firebase.firestore.FirebaseGroupDB
 import com.yml.chatapp.ui.wrapper.Group
 import com.yml.chatapp.ui.wrapper.Message
@@ -29,7 +30,13 @@ class GroupChatViewModel(val group: Group): ViewModel() {
 
     fun setGroupMessageToDb(senderId:String, message:String, group: Group) {
         viewModelScope.launch {
-            FirebaseGroupDB.getInstance().sendGroupTextInDb(senderId, message, group)
+            Repository.getInstance().sendGroupTextInDb(senderId, message, group)
+        }
+    }
+
+    fun setGroupImageToDb(senderId:String, image: ByteArray, group: Group) {
+        viewModelScope.launch {
+            Repository.getInstance().sendGroupImageInDb(senderId, image, group)
         }
     }
 

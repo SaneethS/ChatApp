@@ -65,7 +65,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="8dp"
-            android:layout_toStartOf="@id/camera_image"
+            android:layout_toStartOf="@id/send_image"
             android:background="@null"
             android:fontFamily="@font/pt_sans"
             android:hint="@string/type_a_message_chat_window"
@@ -73,13 +73,13 @@
             android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/camera_image"
+            android:id="@+id/send_image"
             android:layout_width="18dp"
             android:layout_height="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginEnd="12.5dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12.5dp"
+            android:layout_marginBottom="12dp"
             android:src="@drawable/camera_icon" />
     </RelativeLayout>
 

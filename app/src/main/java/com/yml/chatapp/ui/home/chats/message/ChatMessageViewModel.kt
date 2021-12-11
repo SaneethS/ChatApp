@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yml.chatapp.data.repository.Repository
 import com.yml.chatapp.firebase.firestore.FirebaseChatDB
 import com.yml.chatapp.ui.wrapper.Message
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +23,13 @@ class ChatMessageViewModel(val senderId: String, val receiverId: String): ViewMo
 
     fun sendTextMessage(senderId: String, receiverId: String, message: String) {
         viewModelScope.launch {
-            FirebaseChatDB.getInstance().sendTextToDb(senderId, receiverId, message)
+            Repository.getInstance().sendTextToDb(senderId, receiverId, message)
+        }
+    }
+
+    fun sendImageMessage(senderId: String, receiverId: String, image: ByteArray) {
+        viewModelScope.launch {
+            Repository.getInstance().sendImageToDb(senderId, receiverId, image)
         }
     }
 

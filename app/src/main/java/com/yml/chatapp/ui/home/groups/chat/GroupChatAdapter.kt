@@ -1,13 +1,18 @@
 package com.yml.chatapp.ui.home.groups.chat
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yml.chatapp.R
+import com.yml.chatapp.common.CONTENT_TEXT
 import com.yml.chatapp.ui.wrapper.Message
 import com.yml.chatapp.ui.wrapper.User
 
 class GroupChatAdapter(
+    private val context: Context,
     private var messageList: ArrayList<Message>,
     private var senderId: String,
     private var memberList: ArrayList<User>
@@ -39,15 +44,38 @@ class GroupChatAdapter(
         when (getItemViewType(position)) {
             0 -> {
                 holder as SendGroupViewHolder
-                holder.sendText.text = message.content
+                if(message.contentType == CONTENT_TEXT) {
+                    holder.sendText.text = message.content
+                    holder.sendText.visibility = View.VISIBLE
+                    holder.sendImage.visibility = View.GONE
+                }else {
+                    holder.sendText.visibility = View.GONE
+                    holder.sendImage.visibility = View.VISIBLE
+                    Glide.with(context)
+                        .load(message.content)
+                        .fitCenter()
+                        .into(holder.sendImage)
+                }
             }
             else -> {
                 holder as ReceiveGroupViewHolder
-                holder.receiveText.text = message.content
                 memberList.forEach {
                     if (it.fUid == message.senderId) {
                         holder.userName.text = it.name
                     }
+                }
+
+                if(message.contentType == CONTENT_TEXT) {
+                    holder.receiveText.text = message.content
+                    holder.receiveText.visibility = View.VISIBLE
+                    holder.receiveImage.visibility = View.GONE
+                }else {
+                    holder.receiveText.visibility = View.GONE
+                    holder.receiveImage.visibility = View.VISIBLE
+                    Glide.with(context)
+                        .load(message.content)
+                        .fitCenter()
+                        .into(holder.receiveImage)
                 }
             }
         }

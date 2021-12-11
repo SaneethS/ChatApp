@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yml.chatapp">
+    package="com.yml.chatapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ChatApp">
+        android:theme="@style/Theme.ChatApp" >
+        <activity
+            android:name=".ui.home.preview.PreviewImage"
+            android:exported="false" />
         <activity
             android:name=".ui.home.groups.chat.GroupChatActivity"
             android:exported="false" />
@@ -30,7 +34,7 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.authentication.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

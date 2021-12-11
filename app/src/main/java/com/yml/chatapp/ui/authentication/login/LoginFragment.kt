@@ -48,7 +48,8 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
                 bundle.putString("storeVerificationId", loginViewModel.storedVerificationId)
                 verifyFragment.arguments = bundle
                 activity?.run{
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_view, verifyFragment).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_view, verifyFragment)
+                        .addToBackStack(null).commit()
                 }
             }
         }
