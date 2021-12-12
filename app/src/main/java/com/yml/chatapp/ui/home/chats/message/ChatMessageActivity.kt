@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yml.chatapp.common.CONFIRM_IMAGE_REQUEST_CODE
 import com.yml.chatapp.common.PICK_IMAGE_REQUEST_CODE
 import com.yml.chatapp.common.SET_IMAGE
@@ -43,10 +44,20 @@ class ChatMessageActivity : AppCompatActivity() {
                 ChatMessageViewModel(currentUser!!.fUid, foreignUser!!.fUid)
             ))[ChatMessageViewModel::class.java]
         binding.sendUserName.text = foreignUser!!.name
+        setProfilePic()
         sendMessage()
         initRecyclerView()
         allListeners()
         allObservers()
+    }
+
+    private fun setProfilePic() {
+        if(foreignUser!!.image.isNotEmpty()) {
+            Glide.with(this)
+                .load(foreignUser!!.image)
+                .centerCrop()
+                .into(binding.foreignUserImage)
+        }
     }
 
     private fun initRecyclerView() {

@@ -68,7 +68,7 @@ class ChatsFragment: Fragment(R.layout.fragment_chat) {
     }
 
     private fun initRecyclerView() {
-        chatListAdapter = ChatListAdapter(userList)
+        chatListAdapter = context?.let { ChatListAdapter(it,userList) }!!
         recyclerView = binding.recyclerViewUser
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
