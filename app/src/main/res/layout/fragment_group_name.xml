@@ -34,13 +34,12 @@
             android:textSize="21sp"/>
     </RelativeLayout>
 
-    <TextView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/please_enter_your_group_name"
-        android:textSize="32sp"
+        android:src="@drawable/whatsapp_group_user"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -90,22 +89,23 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:padding="10dp"
+        android:hint="Enter your group name"
+        android:textColorHint="@color/white_shade"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/save_group_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="48dp"
         android:background="@drawable/button_background"
-        android:text="@string/save_group_name"
         android:fontFamily="@font/poppins_medium"
+        android:src="@drawable/check_mark"
         android:textAllCaps="false"
+        android:tintMode="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,18 @@
 package com.yml.chatapp.ui.home.chats
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yml.chatapp.R
 import com.yml.chatapp.common.OnItemClickListener
 import com.yml.chatapp.ui.wrapper.User
+import de.hdodenhof.circleimageview.CircleImageView
 
-class ChatListAdapter(private var userList: ArrayList<User>):
+class ChatListAdapter(val context: Context, private var userList: ArrayList<User>):
     RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder>(){
     private lateinit var clickListener: OnItemClickListener
 
@@ -23,7 +26,7 @@ class ChatListAdapter(private var userList: ArrayList<User>):
             parent, false
         )
 
-        return ChatListViewHolder(itemView,clickListener)
+        return ChatListViewHolder(context, itemView,clickListener)
     }
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
@@ -35,12 +38,19 @@ class ChatListAdapter(private var userList: ArrayList<User>):
         return userList.size
     }
 
-    class ChatListViewHolder(view: View, listener: OnItemClickListener): RecyclerView.ViewHolder(view) {
+    class ChatListViewHolder(val context: Context,view: View, listener: OnItemClickListener): RecyclerView.ViewHolder(view) {
         private val name:TextView = view.findViewById(R.id.list_user_name)
         private val status: TextView = view.findViewById(R.id.list_user_status)
+        private val image:CircleImageView = view.findViewById(R.id.user_image)
         fun bind(item: User) {
             name.text = item.name
             status.text = item.status
+            if(item.image.isNotEmpty()) {
+                Glide.with(context)
+                    .load(item.image)
+                    .centerCrop()
+                    .into(image)
+            }
         }
 
         init {

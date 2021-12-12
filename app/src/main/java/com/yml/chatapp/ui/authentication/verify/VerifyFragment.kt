@@ -42,6 +42,12 @@ class VerifyFragment: Fragment(R.layout.fragment_verify) {
                 Toast.makeText(requireContext(), "Enter the otp", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.backButton.setOnClickListener {
+            activity?.run {
+                supportFragmentManager.popBackStack()
+            }
+        }
     }
 
     private fun allObservers() {

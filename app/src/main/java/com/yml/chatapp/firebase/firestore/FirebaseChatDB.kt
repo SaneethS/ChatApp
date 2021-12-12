@@ -28,17 +28,10 @@ class FirebaseChatDB {
         }
     }
 
-    suspend fun sendTextToDb(senderId: String, receiverId:String, message: String):Boolean {
-        val chatId = chatId(senderId, receiverId)
-        val dbMessage = Message(
-            senderId,
-            message,
-            "text",
-            System.currentTimeMillis()
-        )
+    suspend fun sendMessageToDb(chatId: String, senderId: String, receiverId:String, message: Message):Boolean {
         return suspendCoroutine {   callback ->
             fireStore.collection(CHATS).document(chatId).collection(MESSAGES)
-                .add(dbMessage).addOnCompleteListener { task->
+                .add(message).addOnCompleteListener { task->
                     if(task.isSuccessful) {
                         callback.resumeWith(Result.success(true))
                     }else {

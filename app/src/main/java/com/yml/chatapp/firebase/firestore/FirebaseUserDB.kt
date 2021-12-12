@@ -69,7 +69,8 @@ class FirebaseUserDB {
     suspend fun updateUserInDb(user: User): Boolean {
         val userMap = mapOf(
             "name" to user.name,
-            "status" to user.status
+            "status" to user.status,
+            "image" to  user.image
         )
         return suspendCoroutine { callback ->
             fireStore.collection(USERS).document(user.fUid).update(userMap)

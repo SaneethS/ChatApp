@@ -75,13 +75,7 @@ class FirebaseGroupDB {
 
     }
 
-    suspend fun sendGroupTextInDb(senderId: String, message: String, group: Group): Boolean {
-        val message = Message(
-            senderId,
-            message,
-            "text",
-            System.currentTimeMillis()
-        )
+    suspend fun sendGroupMessageInDb( message: Message, group: Group): Boolean {
         return suspendCoroutine { callback ->
             fireStore.collection(GROUPS).document(group.groupId).collection(MESSAGES)
                 .add(message).addOnCompleteListener {

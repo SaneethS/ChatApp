@@ -3,16 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/message"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_chat_layout_text"
-        android:textSize="@dimen/send_chat_layout_text_size"
-        android:background="@drawable/send_chat_text_layout"
-        android:padding="@dimen/send_chat_layout_padding"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="@dimen/send_chat_layout_bottom_margin"
-        android:layout_alignParentEnd="true">
-    </TextView>
+        android:background="@drawable/send_chat_text_layout"
+        android:padding="@dimen/send_chat_layout_padding">
 
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_chat_layout_text"
+            android:textSize="@dimen/send_chat_layout_text_size" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </RelativeLayout>

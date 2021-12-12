@@ -17,8 +17,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
     private var currentUser: User = User("", "", "",image = "")
-    private  lateinit var imageUri: Uri
-    private lateinit var downloadUri: String
+    private var imageUri: Uri? = null
+    private var downloadUri: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +33,21 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun allListeners() {
         binding.saveButtonProfile.setOnClickListener {
-            editProfile()
+            if(imageUri != null) {
+                profileViewModel.setUserProfile(imageUri!!)
+            }else {
+                editProfile()
+            }
         }
         binding.imageView.setOnClickListener {
             var intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, 100)
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
         }
     }
 
@@ -48,19 +56,19 @@ class ProfileActivity : AppCompatActivity() {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             imageUri = data?.data!!
             binding.imageView.setImageURI(imageUri)
-            profileViewModel.setUserProfile(imageUri)
         }
     }
     private fun editProfile() {
         val name = binding.nameTextProfile.text.toString().trim()
         val status = binding.statusTextProfile.text.toString().trim()
-        val user = User(currentUser.phoneNo, currentUser.fUid, name, status, currentUser.image)
+        val user = User(currentUser.phoneNo, currentUser.fUid, name, status, downloadUri)
         profileViewModel.updateUserData(user)
     }
 
     private fun allObservers() {
         profileViewModel.getUserDataStatus.observe(this@ProfileActivity) {
             currentUser = it
+            downloadUri = currentUser.image
             setUserDetails()
         }
 
@@ -74,7 +82,7 @@ class ProfileActivity : AppCompatActivity() {
 
         profileViewModel.setProfileStatus.observe(this@ProfileActivity) {
             downloadUri = it.toString()
-            Glide.with(this).load(downloadUri).into(binding.imageView)
+            editProfile()
         }
     }
 
@@ -84,5 +92,12 @@ class ProfileActivity : AppCompatActivity() {
 
         name.setText(currentUser.name)
         status.setText(currentUser.status)
+
+        if(currentUser.image.isNotEmpty()) {
+            Glide.with(this)
+                .load(currentUser.image)
+                .centerInside()
+                .into(binding.imageView)
+        }
     }
 }

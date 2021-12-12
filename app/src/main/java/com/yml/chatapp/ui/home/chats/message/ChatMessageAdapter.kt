@@ -1,12 +1,17 @@
 package com.yml.chatapp.ui.home.chats.message
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yml.chatapp.R
+import com.yml.chatapp.common.CONTENT_TEXT
 import com.yml.chatapp.ui.wrapper.Message
 
-class ChatMessageAdapter(private var messageList: ArrayList<Message>,
+class ChatMessageAdapter(private val context: Context, private var messageList: ArrayList<Message>,
                             private val senderId: String): RecyclerView.Adapter<ChatMessageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatMessageViewHolder {
@@ -33,7 +38,19 @@ class ChatMessageAdapter(private var messageList: ArrayList<Message>,
 
     override fun onBindViewHolder(holder: ChatMessageViewHolder, position: Int) {
         val message = messageList[position]
-        holder.messageText.text = message.content
+
+        if(message.contentType == CONTENT_TEXT) {
+            holder.messageText.text = message.content
+            holder.messageText.visibility = View.VISIBLE
+            holder.messageImage.visibility = View.GONE
+        }else {
+            holder.messageText.visibility = View.GONE
+            holder.messageImage.visibility= View.VISIBLE
+            Glide.with(context)
+                .load(message.content)
+                .fitCenter()
+                .into(holder.messageImage)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
