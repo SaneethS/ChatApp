@@ -1,6 +1,5 @@
 package com.yml.chatapp.data.repository
 
-import android.net.Uri
 import android.util.Log
 import com.yml.chatapp.common.CONTENT_IMAGE
 import com.yml.chatapp.common.CONTENT_TEXT
@@ -17,8 +16,6 @@ import com.yml.chatapp.ui.wrapper.Group
 import com.yml.chatapp.ui.wrapper.Message
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
-import java.lang.Exception
 
 class Repository {
     private var pushNotificationSenderService: PushNotificationSenderService = PushNotificationSenderService()
@@ -109,6 +106,7 @@ class Repository {
     suspend fun sendPushNotification(token: String, title: String, message: String, imageUrl: String) {
         return withContext(Dispatchers.IO) {
             val pushContent = PushContent(title, message, imageUrl)
+            Log.i("Repository", "$pushContent")
             val pushMessage = PushMessage(token, pushContent)
             Log.i("Repository", "${pushNotificationSenderService.sendPushNotification(pushMessage)}")
         }

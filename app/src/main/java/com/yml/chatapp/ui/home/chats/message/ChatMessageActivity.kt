@@ -141,6 +141,12 @@ class ChatMessageActivity : AppCompatActivity() {
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION_REQUEST_CODE)
             }
         }
+
+        binding.foreignUserImage.setOnClickListener {
+            val intent = Intent(this, ViewProfileActivity::class.java)
+            intent.putExtra("foreignUser", foreignUser)
+            startActivity(intent)
+        }
     }
 
     private fun fetchImage() {
