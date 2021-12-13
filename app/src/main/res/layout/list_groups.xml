@@ -10,7 +10,7 @@
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_image"
+            android:id="@+id/group_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
-            android:layout_toEndOf="@id/user_image"
+            android:layout_toEndOf="@id/group_image"
             android:fontFamily="@font/pt_sans"
             android:text="@string/name_from_user_list"
             android:textColor="@color/user_text_color"

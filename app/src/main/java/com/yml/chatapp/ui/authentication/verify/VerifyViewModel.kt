@@ -26,10 +26,17 @@ class VerifyViewModel:ViewModel() {
                             _loginStatus.value = it
                         }
                     }else{
+
                         _loginStatus.value = true
                     }
                 }
             }
+        }
+    }
+
+    fun addUserTokenToDb(userId: String, token:String) {
+        viewModelScope.launch {
+            FirebaseUserDB.getInstance().addUserTokenToDb(userId, token)
         }
     }
 }

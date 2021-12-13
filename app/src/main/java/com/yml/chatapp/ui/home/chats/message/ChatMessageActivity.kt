@@ -76,8 +76,6 @@ class ChatMessageActivity : AppCompatActivity() {
         if (message.isNotEmpty()) {
             chatMessageViewModel.sendTextMessage(currentUser!!.fUid, foreignUser!!.fUid, message)
             binding.typeMessageText.setText("")
-        }else {
-            Toast.makeText(this, "Enter a text", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -153,6 +151,11 @@ class ChatMessageActivity : AppCompatActivity() {
     private fun allObservers() {
         chatMessageViewModel.getChatStatus.observe(this@ChatMessageActivity) {
             chatMessageAdapter.notifyDataSetChanged()
+        }
+
+        chatMessageViewModel.sendTextMessageStatus.observe(this@ChatMessageActivity) {
+            Log.i("ChatMessageNotification","${it.content}")
+            chatMessageViewModel.sendNotification(foreignUser!!.firebaseToken, currentUser!!.name, it.content,it.content, it.contentType)
         }
     }
 }

@@ -38,6 +38,28 @@ object FirebaseStorage {
         }
     }
 
+    suspend fun setGroupProfile(profile: Uri): Uri {
+        return suspendCoroutine { callback ->
+            val gid = UUID.randomUUID().toString()
+            var image = storage.child("groupProfileImages")
+            val userImage =
+                image.child(GROUPS).child(gid).child("profile.webp")
+
+            val upload = userImage.putFile(profile)
+
+            upload.addOnCompleteListener {  task ->
+                if(task.isSuccessful) {
+                    userImage.downloadUrl.addOnSuccessListener {
+                        callback.resumeWith(Result.success(it))
+                    }
+                }else {
+                    callback.resumeWith(Result.failure(task.exception ?:
+                    Exception("Something went wrong")))
+                }
+            }
+        }
+    }
+
     suspend fun uploadChatImages(chatId: String, image: ByteArray): String {
         val uid = UUID.randomUUID().toString()
         val ref = storage.child(CHATS).child(chatId).child(uid)

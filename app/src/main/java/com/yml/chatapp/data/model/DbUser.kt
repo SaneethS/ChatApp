@@ -4,5 +4,6 @@ data class DbUser(
     val phoneNo: String,
     val name: String = "",
     val status: String = "",
-    val image: String = ""
+    val image: String = "",
+    val firebaseToken: String = ""
 )

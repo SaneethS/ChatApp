@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.yml.chatapp.R
+import com.yml.chatapp.common.SharedPref
 import com.yml.chatapp.databinding.FragmentVerifyBinding
+import com.yml.chatapp.firebase.firestore.FirebaseUserDB
 import com.yml.chatapp.ui.authentication.SharedViewModel
 
 class VerifyFragment: Fragment(R.layout.fragment_verify) {
@@ -53,6 +55,11 @@ class VerifyFragment: Fragment(R.layout.fragment_verify) {
     private fun allObservers() {
         verifyViewModel.loginStatus.observe(viewLifecycleOwner) {
             if(it) {
+                val uid = context?.let { it1 -> SharedPref.getInstance(it1).getUserId() }
+                val token = context?.let { it1 -> SharedPref.getInstance(it1).getFBToken() }
+                if (uid != null && token != null) {
+                    verifyViewModel.addUserTokenToDb(uid, token)
+                }
                 sharedViewModel.setGoToHomeActivity(true)
             }else {
                 Toast.makeText(requireContext(),"Invalid OTP",Toast.LENGTH_SHORT).show()

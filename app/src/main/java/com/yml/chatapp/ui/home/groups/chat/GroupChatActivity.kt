@@ -134,6 +134,10 @@ class GroupChatActivity : AppCompatActivity() {
                 initRecyclerView()
             }
         }
+
+        groupChatViewModel.sendGroupMessageStatus.observe(this) {
+            groupChatViewModel.sendGroupNotification(group!!.groupName, it)
+        }
     }
 
     private fun initRecyclerView() {

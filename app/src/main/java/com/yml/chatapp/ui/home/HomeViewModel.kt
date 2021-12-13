@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yml.chatapp.common.SharedPref
+import com.yml.chatapp.data.repository.Repository
 import com.yml.chatapp.firebase.auth.Authentication
 import com.yml.chatapp.firebase.firestore.FirebaseGroupDB
 import com.yml.chatapp.firebase.firestore.FirebaseUserDB
@@ -27,7 +28,7 @@ class HomeViewModel: ViewModel() {
 
     fun getUserList() {
         viewModelScope.launch {
-            FirebaseUserDB.getInstance().getUserListFromDb().let {
+            FirebaseUserDB.getInstance().getUserListFromDb().collect {
                 if(it != null){
                     _getUsersListStatus.value = it
                 }
@@ -55,7 +56,9 @@ class HomeViewModel: ViewModel() {
         }
     }
 
-    fun logOut(context: Context) {
-        Authentication.signOut(context)
+    fun logOut(userId: String) {
+        viewModelScope.launch {
+            Repository.getInstance().logout(userId)
+        }
     }
 }

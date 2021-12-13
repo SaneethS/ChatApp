@@ -53,7 +53,7 @@ class GroupFragment: Fragment(R.layout.fragment_group) {
     }
 
     private fun initRecyclerView() {
-        groupListAdapter = GroupListAdapter(groupList)
+        groupListAdapter = context?.let { GroupListAdapter(it,groupList) }!!
         recyclerView = binding.groupListRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)

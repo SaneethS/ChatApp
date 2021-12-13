@@ -12,6 +12,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.yml.chatapp.R
+import com.yml.chatapp.common.SharedPref
 import com.yml.chatapp.ui.authentication.MainActivity
 import com.yml.chatapp.databinding.ActivityHomeBinding
 import com.yml.chatapp.ui.home.adapter.ViewPagerAdapter
@@ -70,7 +71,8 @@ class HomeActivity : AppCompatActivity() {
             }
 
             R.id.logout_button -> {
-                homeViewModel.logOut(this@HomeActivity)
+                SharedPref.getInstance(this@HomeActivity).clearAll()
+                homeViewModel.logOut(currentUser.fUid)
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("showSplash", false)
                 startActivity(intent)

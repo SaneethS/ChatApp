@@ -28,12 +28,12 @@ class FirebaseChatDB {
         }
     }
 
-    suspend fun sendMessageToDb(chatId: String, senderId: String, receiverId:String, message: Message):Boolean {
+    suspend fun sendMessageToDb(chatId: String, senderId: String, receiverId:String, message: Message):Message {
         return suspendCoroutine {   callback ->
             fireStore.collection(CHATS).document(chatId).collection(MESSAGES)
                 .add(message).addOnCompleteListener { task->
                     if(task.isSuccessful) {
-                        callback.resumeWith(Result.success(true))
+                        callback.resumeWith(Result.success(message))
                     }else {
                         callback.resumeWith(
                             Result.failure(task.exception ?: Exception("Something went wrong"))

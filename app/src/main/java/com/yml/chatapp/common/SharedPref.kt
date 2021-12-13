@@ -20,9 +20,13 @@ class SharedPref(var context: Context) {
 
     fun getUserId() = sharedPreferences.getString(USER_ID, null)
 
+    fun addToken(token: String) = sharedPreferences.edit().putString(MESSAGE_TOKEN, token).apply()
+
+    fun getFBToken() = sharedPreferences.getString(MESSAGE_TOKEN, "")
+
     fun clearAll() {
         val editor = sharedPreferences.edit()
-        editor.clear()
+        editor.remove(USER_ID)
         editor.apply()
     }
 

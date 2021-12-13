@@ -9,7 +9,8 @@ object Util {
             phoneNo = user["phoneNo"].toString(),
             name = user["name"].toString(),
             status = user["status"].toString(),
-            image = user["image"].toString()
+            image = user["image"].toString(),
+            firebaseToken = user["firebaseToken"].toString()
         )
     }
 }
