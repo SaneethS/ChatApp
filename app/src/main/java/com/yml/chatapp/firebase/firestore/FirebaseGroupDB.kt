@@ -49,13 +49,13 @@ class FirebaseGroupDB {
         return callbackFlow {
             val ref = fireStore.collection(GROUPS).whereArrayContains("participants", userId)
                 .addSnapshotListener { value, error ->
-                    if(error != null) {
+                    if (error != null) {
                         this.trySend(null).isFailure
                         error.printStackTrace()
-                    }else {
-                       if(value != null) {
-                           val groupList = ArrayList<Group>()
-                           for (item in value.documents) {
+                    } else {
+                        if (value != null) {
+                            val groupList = ArrayList<Group>()
+                            for (item in value.documents) {
                                 val groupHashMap = item.data as HashMap<*, *>
                                 val group = Group(
                                     groupName = groupHashMap["groupName"].toString(),
@@ -64,9 +64,9 @@ class FirebaseGroupDB {
                                     groupId = item.id
                                 )
                                 groupList.add(group)
-                           }
-                           this.trySend(groupList).isSuccess
-                       }
+                            }
+                            this.trySend(groupList).isSuccess
+                        }
                     }
                 }
             awaitClose {
@@ -76,7 +76,7 @@ class FirebaseGroupDB {
 
     }
 
-    suspend fun sendGroupMessageInDb( message: Message, group: Group): Message {
+    suspend fun sendGroupMessageInDb(message: Message, group: Group): Message {
         return suspendCoroutine { callback ->
             fireStore.collection(GROUPS).document(group.groupId).collection(MESSAGES)
                 .add(message).addOnCompleteListener {
@@ -99,16 +99,18 @@ class FirebaseGroupDB {
         return callbackFlow {
 
             val ref = fireStore.collection(GROUPS).document(group.groupId)
-                .collection(MESSAGES).orderBy("dateCreated",
-                    Query.Direction.DESCENDING).addSnapshotListener { value, error ->
-                    if(error != null) {
+                .collection(MESSAGES).orderBy(
+                    "dateCreated",
+                    Query.Direction.DESCENDING
+                ).limit(16).addSnapshotListener { value, error ->
+                    if (error != null) {
                         this.trySend(null).isFailure
                         error.printStackTrace()
-                    }else {
-                        if(value != null) {
+                    } else {
+                        if (value != null) {
                             val messageList = arrayListOf<Message>()
-                            for(item in value.documents) {
-                                val data = item.data as HashMap<*,*>
+                            for (item in value.documents) {
+                                val data = item.data as HashMap<*, *>
                                 val message = Message(
                                     senderId = data["senderId"].toString(),
                                     dateCreated = data["dateCreated"] as Long,
@@ -127,16 +129,49 @@ class FirebaseGroupDB {
         }
     }
 
-    suspend fun getUsersInfoFromParticipants(userIdList: ArrayList<String>) : ArrayList<User> {
-        return withContext(Dispatchers.IO){
+    suspend fun getPagedGroupMessages(group: Group, offset: Long): ArrayList<Message> {
+        return suspendCoroutine { callback ->
+            Log.i("Group Db", "Control is here")
+            fireStore.collection(GROUPS).document(group.groupId)
+                .collection(MESSAGES).orderBy(
+                    "dateCreated",
+                    Query.Direction.DESCENDING
+                )
+                .startAfter(offset).limit(10).get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val messageList = arrayListOf<Message>()
+                        for (item in task.result?.documents!!) {
+                            val data = item.data as HashMap<*, *>
+                            val message = Message(
+                                senderId = data["senderId"].toString(),
+                                dateCreated = data["dateCreated"] as Long,
+                                content = data["content"].toString(),
+                                contentType = data["contentType"].toString()
+                            )
+                            messageList.add(message)
+                        }
+                        callback.resumeWith(Result.success(messageList))
+                    } else {
+                        callback.resumeWith(
+                            Result.failure(
+                                task.exception ?: Exception("Something went wrong")
+                            )
+                        )
+                    }
+                }
+        }
+    }
+
+    suspend fun getUsersInfoFromParticipants(userIdList: ArrayList<String>): ArrayList<User> {
+        return withContext(Dispatchers.IO) {
             val userList = ArrayList<User>()
-            for(id in userIdList) {
+            for (id in userIdList) {
                 try {
                     val res = FirebaseUserDB.getInstance().getUserFromDb(id)
                     if (res != null) {
                         userList.add(res)
                     }
-                }catch (e :Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }

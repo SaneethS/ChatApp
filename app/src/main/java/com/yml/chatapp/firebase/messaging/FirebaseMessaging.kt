@@ -46,22 +46,6 @@ class FirebaseMessaging: FirebaseMessagingService() {
             generateImageNotification(title, image.toString())
         }
 
-//        val intent = Intent(this, MainActivity::class.java)
-//        val pendingIntent = PendingIntent.getActivity(
-//            this,
-//            0,
-//            intent,
-//            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-//        )
-//
-//        val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-//            .setSmallIcon(R.drawable.logo)
-//            .setContentTitle(title)
-//            .setContentText(content)
-//            .setContentIntent(pendingIntent)
-//            .setPriority(NotificationCompat.PRIORITY_HIGH)
-//            .build()
-
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val notificationChannel = NotificationChannel(
