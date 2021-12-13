@@ -35,7 +35,7 @@ class ParticipantFragment: Fragment(R.layout.fragment_participant) {
     }
 
     private fun initRecyclerView() {
-        participantAdapter = ParticipantAdapter(participantList)
+        participantAdapter = context?.let { ParticipantAdapter(it,participantList) }!!
         recyclerView = binding.participantRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
