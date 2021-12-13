@@ -27,6 +27,9 @@ class GroupChatViewModel(val group: Group): ViewModel() {
     private val _sendGroupMessageStatus = MutableLiveData<Message>()
     val sendGroupMessageStatus = _sendGroupMessageStatus as LiveData<Message>
 
+    private val _getGroupPagedStatus = MutableLiveData<ArrayList<Message>>()
+    val getGroupPagedStatus = _getGroupPagedStatus as LiveData<ArrayList<Message>>
+
     init {
         getGroupChatFromDb(group)
         getSenderName(group.participants)
@@ -56,6 +59,14 @@ class GroupChatViewModel(val group: Group): ViewModel() {
                     messageList.addAll(it)
                 }
                 _getGroupChatStatus.value = true
+            }
+        }
+    }
+
+    fun getPagedGroupMessage(group: Group, offset: Long) {
+        viewModelScope.launch {
+            FirebaseGroupDB.getInstance().getPagedGroupMessages(group, offset).let {
+                _getGroupPagedStatus.value = it
             }
         }
     }

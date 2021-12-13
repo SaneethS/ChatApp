@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +31,11 @@ class ChatMessageActivity : AppCompatActivity() {
     private var foreignUser: User? = null
     private lateinit var chatMessageAdapter: ChatMessageAdapter
     private lateinit var recyclerView: RecyclerView
+    private var offset:Long = 0L
+    private var isLoading:Boolean = false
+    var visibleItems: Int = 0
+    var totalItems: Int = 0
+    var firstVisibleItem: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +73,30 @@ class ChatMessageActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = chatMessageAdapter
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItems = (recyclerView.layoutManager as LinearLayoutManager).childCount
+                totalItems = (recyclerView.layoutManager as LinearLayoutManager).itemCount
+                firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findFirstVisibleItemPosition()
+
+                if (!isLoading) {
+                    if ((visibleItems + firstVisibleItem) >= totalItems && firstVisibleItem >= 0) {
+                        isLoading = true
+                        if (offset != 0L) {
+                            Log.d("pagination", "scrolled")
+                            getPagedMessage()
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getPagedMessage() {
+        chatMessageViewModel.getPagedMessages(foreignUser, currentUser, offset)
     }
 
     private fun sendMessage() {
@@ -141,6 +169,12 @@ class ChatMessageActivity : AppCompatActivity() {
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION_REQUEST_CODE)
             }
         }
+
+        binding.foreignUserImage.setOnClickListener {
+            val intent = Intent(this, ViewProfileActivity::class.java)
+            intent.putExtra("foreignUser", foreignUser)
+            startActivity(intent)
+        }
     }
 
     private fun fetchImage() {
@@ -150,12 +184,27 @@ class ChatMessageActivity : AppCompatActivity() {
 
     private fun allObservers() {
         chatMessageViewModel.getChatStatus.observe(this@ChatMessageActivity) {
-            chatMessageAdapter.notifyDataSetChanged()
+            if(it != null) {
+                if(chatMessageViewModel.messageList.size != 0 ) {
+                    isLoading = false
+                    offset = chatMessageViewModel.messageList[chatMessageViewModel.messageList.size - 1].dateCreated
+                    chatMessageAdapter.notifyDataSetChanged()
+                }
+            }
         }
 
         chatMessageViewModel.sendTextMessageStatus.observe(this@ChatMessageActivity) {
             Log.i("ChatMessageNotification","${it.content}")
             chatMessageViewModel.sendNotification(foreignUser!!.firebaseToken, currentUser!!.name, it.content,it.content, it.contentType)
+        }
+
+        chatMessageViewModel.getPagedMessageStatus.observe(this@ChatMessageActivity) { list ->
+            isLoading = false
+            for(i in list) {
+                chatMessageViewModel.messageList.add(i)
+                offset = i.dateCreated
+            }
+            chatMessageAdapter.notifyDataSetChanged()
         }
     }
 }

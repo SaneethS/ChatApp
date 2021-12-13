@@ -6,6 +6,7 @@ import com.google.firebase.ktx.Firebase
 import com.yml.chatapp.common.CHATS
 import com.yml.chatapp.common.MESSAGES
 import com.yml.chatapp.ui.wrapper.Message
+import com.yml.chatapp.ui.wrapper.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -50,7 +51,8 @@ class FirebaseChatDB {
             val chatId = chatId(senderId, receiverId)
 
             val ref = fireStore.collection(CHATS).document(chatId)
-                .collection(MESSAGES).orderBy("dateCreated",Query.Direction.DESCENDING).addSnapshotListener { value, error ->
+                .collection(MESSAGES).orderBy("dateCreated",Query.Direction.DESCENDING)
+                .limit(10).addSnapshotListener { value, error ->
                     if(error != null) {
                         this.trySend(null).isFailure
                         error.printStackTrace()
@@ -74,6 +76,34 @@ class FirebaseChatDB {
             awaitClose() {
                 ref.remove()
             }
+        }
+    }
+
+    suspend fun getPagedMessage(foreignUser: User?, currentUser: User?, offset: Long): ArrayList<Message> {
+        return suspendCoroutine {   callback ->
+            val chatId = chatId(currentUser!!.fUid, foreignUser!!.fUid)
+
+            fireStore.collection(CHATS).document(chatId)
+                .collection(MESSAGES).orderBy("dateCreated", Query.Direction.DESCENDING)
+                .startAfter(offset)
+                .limit(10).get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val messageList = arrayListOf<Message>()
+                        for (item in task.result?.documents!!) {
+                            val data = item.data as HashMap<*, *>
+                            val message = Message(
+                                senderId = data["senderId"].toString(),
+                                dateCreated = data["dateCreated"] as Long,
+                                content = data["content"].toString(),
+                                contentType = data["contentType"].toString()
+                            )
+                            messageList.add(message)
+                        }
+                        callback.resumeWith(Result.success(messageList))
+                    }else {
+                        callback.resumeWith(Result.failure(task.exception ?: Exception("Something went wrong")))
+                    }
+                }
         }
     }
 }

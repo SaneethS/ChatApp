@@ -28,4 +28,5 @@
     <string name="group_name_text_top_bar">Group Name</string>
     <string name="select_paticipants_text">Select Paticipants</string>
     <string name="name_in_receive_message">Name</string>
+    <string name="user_profile_view">User Profile</string>
 </resources>

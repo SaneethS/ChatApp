@@ -32,6 +32,11 @@ class GroupChatActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var senderId: String
     private var group: Group? = null
+    private var offset:Long = 0L
+    private var isLoading:Boolean = false
+    var visibleItems: Int = 0
+    var totalItems: Int = 0
+    var firstVisibleItem: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +54,7 @@ class GroupChatActivity : AppCompatActivity() {
             )
         )[GroupChatViewModel::class.java]
         binding.groupName.text = group!!.groupName
+        initRecyclerView()
         allListeners()
         allObservers()
     }
@@ -122,21 +128,33 @@ class GroupChatActivity : AppCompatActivity() {
     }
 
     private fun allObservers() {
-        groupChatViewModel.getGroupChatStatus.observe(this) {
-            if(this::groupChatAdapter.isInitialized) {
-                groupChatAdapter.notifyDataSetChanged()
-            }
+        groupChatViewModel.getSenderNameStatus.observe(this) {
+            initRecyclerView()
+            dialog.dismiss()
         }
 
-        groupChatViewModel.getSenderNameStatus.observe(this) {
-            if (it) {
-                dialog.dismiss()
-                initRecyclerView()
+        groupChatViewModel.getGroupChatStatus.observe(this) {
+            if(this::groupChatAdapter.isInitialized) {
+                if(groupChatViewModel.messageList.size != 0) {
+                    isLoading = false
+                    offset = groupChatViewModel.messageList[groupChatViewModel.messageList.size - 1].dateCreated
+                    groupChatAdapter.notifyDataSetChanged()
+                }
             }
         }
 
         groupChatViewModel.sendGroupMessageStatus.observe(this) {
             groupChatViewModel.sendGroupNotification(group!!.groupName, it)
+        }
+
+        groupChatViewModel.getGroupPagedStatus.observe(this) { list ->
+            isLoading = false
+            Log.i("Group Message", "${list.size}")
+            for(i in list) {
+                groupChatViewModel.messageList.add(i)
+                offset = i.dateCreated
+            }
+            groupChatAdapter.notifyDataSetChanged()
         }
     }
 
@@ -153,6 +171,30 @@ class GroupChatActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = groupChatAdapter
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItems = (recyclerView.layoutManager as LinearLayoutManager).childCount
+                totalItems = (recyclerView.layoutManager as LinearLayoutManager).itemCount
+                firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findFirstVisibleItemPosition()
+
+                if (!isLoading) {
+                    if ((visibleItems + firstVisibleItem) >= totalItems && firstVisibleItem >= 0) {
+                        isLoading = true
+                        if (offset != 0L) {
+                            Log.d("pagination", "scrolled")
+                            getPagedGroupMessages()
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getPagedGroupMessages() {
+        group?.let { groupChatViewModel.getPagedGroupMessage(it, offset) }
     }
 
     private fun sendMessageInGroup() {
