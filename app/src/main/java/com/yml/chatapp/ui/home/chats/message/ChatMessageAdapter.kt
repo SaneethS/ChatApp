@@ -48,7 +48,7 @@ class ChatMessageAdapter(private val context: Context, private var messageList: 
             holder.messageImage.visibility= View.VISIBLE
             Glide.with(context)
                 .load(message.content)
-                .placeholder(R.drawable.whatsapp_user)
+                .placeholder(R.drawable.image_preview)
                 .fitCenter()
                 .into(holder.messageImage)
         }

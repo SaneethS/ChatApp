@@ -53,6 +53,7 @@ class GroupChatAdapter(
                     holder.sendImage.visibility = View.VISIBLE
                     Glide.with(context)
                         .load(message.content)
+                        .placeholder(R.drawable.image_preview)
                         .fitCenter()
                         .into(holder.sendImage)
                 }

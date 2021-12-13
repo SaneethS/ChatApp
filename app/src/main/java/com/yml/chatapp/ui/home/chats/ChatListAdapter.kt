@@ -48,6 +48,7 @@ class ChatListAdapter(val context: Context, private var userList: ArrayList<User
             if(item.image.isNotEmpty()) {
                 Glide.with(context)
                     .load(item.image)
+                    .placeholder(R.drawable.whatsapp_user)
                     .centerCrop()
                     .into(image)
             }
