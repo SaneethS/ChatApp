@@ -63,7 +63,7 @@ class ChatsFragment: Fragment(R.layout.fragment_chat) {
                     userList.remove(it)
                 }
             }
-            chatListAdapter.notifyItemRangeInserted(chatListAdapter.itemCount, userList.size)
+            chatListAdapter.notifyDataSetChanged()
         }
     }
 

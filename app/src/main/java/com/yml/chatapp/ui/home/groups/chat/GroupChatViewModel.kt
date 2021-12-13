@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yml.chatapp.common.CONTENT_TEXT
 import com.yml.chatapp.data.repository.Repository
 import com.yml.chatapp.firebase.firestore.FirebaseGroupDB
 import com.yml.chatapp.ui.wrapper.Group
@@ -23,6 +24,9 @@ class GroupChatViewModel(val group: Group): ViewModel() {
     private val _getSenderNameStatus = MutableLiveData<Boolean>()
     val getSenderNameStatus = _getSenderNameStatus as LiveData<Boolean>
 
+    private val _sendGroupMessageStatus = MutableLiveData<Message>()
+    val sendGroupMessageStatus = _sendGroupMessageStatus as LiveData<Message>
+
     init {
         getGroupChatFromDb(group)
         getSenderName(group.participants)
@@ -30,13 +34,17 @@ class GroupChatViewModel(val group: Group): ViewModel() {
 
     fun setGroupMessageToDb(senderId:String, message:String, group: Group) {
         viewModelScope.launch {
-            Repository.getInstance().sendGroupTextInDb(senderId, message, group)
+            Repository.getInstance().sendGroupTextInDb(senderId, message, group).let {
+                _sendGroupMessageStatus.postValue(it)
+            }
         }
     }
 
     fun setGroupImageToDb(senderId:String, image: ByteArray, group: Group) {
         viewModelScope.launch {
-            Repository.getInstance().sendGroupImageInDb(senderId, image, group)
+            Repository.getInstance().sendGroupImageInDb(senderId, image, group).let {
+                _sendGroupMessageStatus.postValue(it)
+            }
         }
     }
 
@@ -58,6 +66,23 @@ class GroupChatViewModel(val group: Group): ViewModel() {
             memberList.clear()
             memberList.addAll(res)
             _getSenderNameStatus.value = true
+        }
+    }
+
+    fun sendGroupNotification(title:String, message: Message) {
+        viewModelScope.launch {
+            val messageToken = ArrayList<String>()
+            memberList.forEach {
+                if(it.fUid != message.senderId) {
+                    messageToken.add(it.firebaseToken)
+                }
+            }
+
+            if(message.contentType == CONTENT_TEXT) {
+                Repository.getInstance().sendGroupNotification(messageToken, title, message.content, "")
+            }else {
+                Repository.getInstance().sendGroupNotification(messageToken, title, "", message.content)
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class Group(
     val groupName: String,
+    val image: String,
     val participants: ArrayList<String>,
     val groupId: String = ""
 ):Serializable

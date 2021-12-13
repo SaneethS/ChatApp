@@ -8,5 +8,6 @@ data class User(
     var name: String = "",
     var status: String = "",
     var image: String = "",
+    val firebaseToken: String = "",
     val isNewUser: Boolean = false
 ): Serializable

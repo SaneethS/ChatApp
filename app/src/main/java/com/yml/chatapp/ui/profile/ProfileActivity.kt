@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.yml.chatapp.R
@@ -62,7 +63,11 @@ class ProfileActivity : AppCompatActivity() {
         val name = binding.nameTextProfile.text.toString().trim()
         val status = binding.statusTextProfile.text.toString().trim()
         val user = User(currentUser.phoneNo, currentUser.fUid, name, status, downloadUri)
-        profileViewModel.updateUserData(user)
+        if(name.isNotEmpty()) {
+            profileViewModel.updateUserData(user)
+        }else {
+            binding.nameTextProfile.setError("Please Enter the name")
+        }
     }
 
     private fun allObservers() {
@@ -96,6 +101,7 @@ class ProfileActivity : AppCompatActivity() {
         if(currentUser.image.isNotEmpty()) {
             Glide.with(this)
                 .load(currentUser.image)
+                .placeholder(R.drawable.whatsapp_user)
                 .centerInside()
                 .into(binding.imageView)
         }

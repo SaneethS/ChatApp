@@ -35,9 +35,9 @@
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/group_profile_image"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
         android:gravity="center"
         android:src="@drawable/whatsapp_group_user"
         android:fontFamily="@font/poppins_medium"

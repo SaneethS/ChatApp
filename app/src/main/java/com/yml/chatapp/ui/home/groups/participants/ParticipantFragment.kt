@@ -77,7 +77,7 @@ class ParticipantFragment: Fragment(R.layout.fragment_participant) {
                     participantList.remove(it)
                 }
             }
-            participantAdapter.notifyItemRangeInserted(participantAdapter.itemCount, participantList.size)
+            participantAdapter.notifyDataSetChanged()
         }
     }
 }

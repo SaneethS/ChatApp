@@ -2,10 +2,14 @@ package com.yml.chatapp.firebase.firestore
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.yml.chatapp.common.FIREBASE_TOKEN
 import com.yml.chatapp.common.USERS
 import com.yml.chatapp.common.Util
 import com.yml.chatapp.data.model.DbUser
 import com.yml.chatapp.ui.wrapper.User
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlin.coroutines.suspendCoroutine
 
@@ -39,6 +43,18 @@ class FirebaseUserDB {
         }
     }
 
+    suspend fun addUserTokenToDb(userId: String, token: String) {
+        val userMap = mapOf(
+            FIREBASE_TOKEN to token
+        )
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).document(userId).update(userMap)
+                .addOnFailureListener {
+                    callback.resumeWith(Result.failure(it))
+                }
+        }
+    }
+
     suspend fun getUserFromDb(userId: String): User? {
         return suspendCoroutine { callback ->
             fireStore.collection(USERS).document(userId).get()
@@ -51,7 +67,8 @@ class FirebaseUserDB {
                                 fUid = userId,
                                 name = dbUser.name,
                                 status = dbUser.status,
-                                image = dbUser.image
+                                image = dbUser.image,
+                                firebaseToken = dbUser.firebaseToken
                             )
                             callback.resumeWith(Result.success(user))
                         }
@@ -88,35 +105,52 @@ class FirebaseUserDB {
         }
     }
 
-    suspend fun getUserListFromDb(): ArrayList<User>? {
-        return suspendCoroutine { callback ->
-            fireStore.collection(USERS).get().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userList = ArrayList<User>()
-                    val dataSnapshot = task.result
-
-                    if (dataSnapshot != null) {
-                        for (item in dataSnapshot.documents) {
+    @ExperimentalCoroutinesApi
+    suspend fun getUserListFromDb(): Flow<ArrayList<User>?> {
+        return callbackFlow {
+            val ref = fireStore.collection(USERS).addSnapshotListener { value, error ->
+                if(error != null) {
+                    this.trySend(null).isFailure
+                    error.printStackTrace()
+                } else {
+                    if(value != null) {
+                        val userList = ArrayList<User>()
+                        for (item in value.documents) {
                             val userHashMap = item.data as HashMap<*, *>
                             val user = User(
                                 name = userHashMap["name"].toString(),
                                 phoneNo = userHashMap["phoneNo"].toString(),
                                 status = userHashMap["status"].toString(),
                                 fUid = item.id,
-                                image = userHashMap["image"].toString()
+                                image = userHashMap["image"].toString(),
+                                firebaseToken = userHashMap["firebaseToken"].toString()
                             )
                             userList.add(user)
                         }
-                        callback.resumeWith(Result.success(userList))
+                        this.trySend(userList).isSuccess
                     }
-                }else {
-                    callback.resumeWith(
-                        Result.failure(
-                            task.exception ?: Exception("Something went wrong")
-                        )
-                    )
                 }
             }
+            awaitClose {
+                ref.remove()
+            }
+        }
+    }
+
+    suspend fun updateUserToken(userId: String, map: Map<String,String>): Boolean {
+        return suspendCoroutine { callback ->
+            fireStore.collection(USERS).document(userId).update(map)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        callback.resumeWith(Result.success(true))
+                    } else {
+                        callback.resumeWith(
+                            Result.failure(
+                                it.exception ?: Exception("Something went wrong")
+                            )
+                        )
+                    }
+                }
         }
     }
 }

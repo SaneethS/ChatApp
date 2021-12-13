@@ -29,7 +29,7 @@ class FirebaseGroupDB {
 
     suspend fun setGroupToDb(group: Group): Boolean {
         return suspendCoroutine { callback ->
-            val dbGroup = DbGroup(group.groupName, group.participants)
+            val dbGroup = DbGroup(group.groupName, group.image, group.participants)
             fireStore.collection(GROUPS).document().set(dbGroup)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -59,6 +59,7 @@ class FirebaseGroupDB {
                                 val groupHashMap = item.data as HashMap<*, *>
                                 val group = Group(
                                     groupName = groupHashMap["groupName"].toString(),
+                                    image = groupHashMap["image"].toString(),
                                     participants = groupHashMap["participants"] as ArrayList<String>,
                                     groupId = item.id
                                 )
@@ -75,12 +76,12 @@ class FirebaseGroupDB {
 
     }
 
-    suspend fun sendGroupMessageInDb( message: Message, group: Group): Boolean {
+    suspend fun sendGroupMessageInDb( message: Message, group: Group): Message {
         return suspendCoroutine { callback ->
             fireStore.collection(GROUPS).document(group.groupId).collection(MESSAGES)
                 .add(message).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        callback.resumeWith(Result.success(true))
+                        callback.resumeWith(Result.success(message))
                     } else {
                         callback.resumeWith(
                             Result.failure(

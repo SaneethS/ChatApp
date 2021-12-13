@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileActivity">
+    tools:context=".ui.profile.ProfileActivity"
+    android:background="@drawable/whats_app_background">
 
     <ImageView
         android:id="@+id/back_button"
@@ -87,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/enter_your_name_profile"
+        android:textColorHint="@color/white_shade"
         android:textColor="@color/white_shade"
         android:ems="10"
         android:padding="10dp"
@@ -119,6 +121,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/status_text_in_profile_screen"
+        android:textColorHint="@color/white_shade"
         android:textColor="@color/white_shade"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
