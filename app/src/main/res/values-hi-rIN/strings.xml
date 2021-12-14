@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">चैटएप</string>
+    <string name="welcome_to_chatapp">चैटएप में आपका स्वागत है</string>
+    <string name="privacy_policy_text"><![CDATA[Read our Privacy Policy. Tap “Agree & Continue” to accept the Terms of Service.]]></string>
+    <string name="send_button_text">भेजना</string>
+    <string name="from_saneeth">से\nसनीत</string>
+    <string name="welcome_to_chatapp_verify">चैटएप में आपका स्वागत है</string>
+    <string name="enter_sms_code">एसएमएस कोड दर्ज करें</string>
+    <string name="edit_text_hint">------</string>
+    <string name="done_text_button">किया हुआ</string>
+    <string name="enter_your_number_login_hint">अपना नंबर दर्ज करें</string>
+    <string name="chatapp_splash_screen">चैटएप</string>
+    <string name="chats_bottom_bar">चैट</string>
+    <string name="groups_bottom_bar">समूहों</string>
+    <string name="profile_text_toolbar">प्रोफ़ाइल</string>
+    <string name="logout_text_toolbar">लॉग आउट</string>
+    <string name="enter_your_name_profile">अपना नाम दर्ज करें</string>
+    <string name="profile_save_button">सहेजें</string>
+    <string name="status_text_in_profile_screen">स्थिति</string>
+    <string name="name_from_user_list">नाम</string>
+    <string name="status_text_user_list">स्थिति</string>
+    <string name="receive_chat_layout_text">प्राप्त करना</string>
+    <string name="send_chat_layout_text">भेजना</string>
+    <string name="type_a_message_chat_window">एक संदेश लिखें</string>
+    <string name="name_chat_window_top_bar">नाम</string>
+    <string name="please_enter_your_group_name">कृपया अपने समूह का नाम दर्ज करें</string>
+    <string name="save_group_name">सहेजें</string>
+    <string name="group_name_text_top_bar">समूह नाम</string>
+    <string name="select_paticipants_text">प्रतिभागियों का चयन करें</string>
+    <string name="name_in_receive_message">नाम</string>
+    <string name="user_profile_view">उपयोगकर्ता प्रोफ़ाइल</string>
+    <string name="chats_view_pager">चैट</string>
+    <string name="groups_view_pager">समूहों</string>
+</resources>

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -137,6 +138,7 @@ class GroupChatActivity : AppCompatActivity() {
             if(this::groupChatAdapter.isInitialized) {
                 if(groupChatViewModel.messageList.size != 0) {
                     isLoading = false
+                    showProgressBar()
                     offset = groupChatViewModel.messageList[groupChatViewModel.messageList.size - 1].dateCreated
                     groupChatAdapter.notifyDataSetChanged()
                 }
@@ -149,12 +151,21 @@ class GroupChatActivity : AppCompatActivity() {
 
         groupChatViewModel.getGroupPagedStatus.observe(this) { list ->
             isLoading = false
+            showProgressBar()
             Log.i("Group Message", "${list.size}")
             for(i in list) {
                 groupChatViewModel.messageList.add(i)
                 offset = i.dateCreated
             }
             groupChatAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun showProgressBar() {
+        if(isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        }else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -183,6 +194,7 @@ class GroupChatActivity : AppCompatActivity() {
                 if (!isLoading) {
                     if ((visibleItems + firstVisibleItem) >= totalItems && firstVisibleItem >= 0) {
                         isLoading = true
+                        showProgressBar()
                         if (offset != 0L) {
                             Log.d("pagination", "scrolled")
                             getPagedGroupMessages()

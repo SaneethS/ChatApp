@@ -1,6 +1,7 @@
 package com.yml.chatapp.ui.home.chats.message
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -9,11 +10,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.yml.chatapp.R
 import com.yml.chatapp.common.CONFIRM_IMAGE_REQUEST_CODE
 import com.yml.chatapp.common.PICK_IMAGE_REQUEST_CODE
 import com.yml.chatapp.common.SET_IMAGE
@@ -29,6 +33,7 @@ class ChatMessageActivity : AppCompatActivity() {
     private lateinit var chatMessageViewModel: ChatMessageViewModel
     private var currentUser: User? = null
     private var foreignUser: User? = null
+    private lateinit var dialog: Dialog
     private lateinit var chatMessageAdapter: ChatMessageAdapter
     private lateinit var recyclerView: RecyclerView
     private var offset:Long = 0L
@@ -41,6 +46,9 @@ class ChatMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        dialog = Dialog(this)
+        dialog.setContentView(R.layout.loading_screen)
+        dialog.show()
         currentUser = intent.getSerializableExtra("currentUser") as User
         foreignUser = intent.getSerializableExtra("sendUser") as User
         chatMessageViewModel =
@@ -85,6 +93,7 @@ class ChatMessageActivity : AppCompatActivity() {
                 if (!isLoading) {
                     if ((visibleItems + firstVisibleItem) >= totalItems && firstVisibleItem >= 0) {
                         isLoading = true
+                        showProgressBar()
                         if (offset != 0L) {
                             Log.d("pagination", "scrolled")
                             getPagedMessage()
@@ -93,6 +102,14 @@ class ChatMessageActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun showProgressBar() {
+        if(isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        }else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun getPagedMessage() {
@@ -187,8 +204,10 @@ class ChatMessageActivity : AppCompatActivity() {
             if(it != null) {
                 if(chatMessageViewModel.messageList.size != 0 ) {
                     isLoading = false
+                    showProgressBar()
                     offset = chatMessageViewModel.messageList[chatMessageViewModel.messageList.size - 1].dateCreated
                     chatMessageAdapter.notifyDataSetChanged()
+                    dialog.dismiss()
                 }
             }
         }
@@ -200,6 +219,7 @@ class ChatMessageActivity : AppCompatActivity() {
 
         chatMessageViewModel.getPagedMessageStatus.observe(this@ChatMessageActivity) { list ->
             isLoading = false
+            showProgressBar()
             for(i in list) {
                 chatMessageViewModel.messageList.add(i)
                 offset = i.dateCreated

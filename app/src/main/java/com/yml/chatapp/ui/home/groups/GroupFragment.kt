@@ -1,5 +1,6 @@
 package com.yml.chatapp.ui.home.groups
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -23,12 +24,16 @@ class GroupFragment: Fragment(R.layout.fragment_group) {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var groupListAdapter: GroupListAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var dialog: Dialog
     private var currentUser: User = User("","","","","")
     private var groupList: ArrayList<Group> = ArrayList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGroupBinding.bind(view)
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.loading_screen)
+        dialog.show()
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
         context?.let { homeViewModel.getUserData(it) }
         val userId = context?.let { SharedPref.getInstance(it).getUserId() }
@@ -69,6 +74,7 @@ class GroupFragment: Fragment(R.layout.fragment_group) {
             groupList.clear()
             groupList.addAll(it)
             groupListAdapter.notifyDataSetChanged()
+            dialog.dismiss()
         }
     }
 

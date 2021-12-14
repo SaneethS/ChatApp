@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">ChatApp</string>
     <string name="welcome_to_chatapp">Welcome to ChatApp</string>
-    <string name="privacy_policy_text"><![CDATA[Read our Privacy Policy. Tap “Agree & Continue” to accept the Terms of Service.]]></string>
+    <string name="privacy_policy_text" translatable="false"><![CDATA[Read our Privacy Policy. Tap “Agree & Continue” to accept the Terms of Service.]]></string>
     <string name="send_button_text">Send</string>
     <string name="from_saneeth">From\nSaneeth</string>
     <string name="welcome_to_chatapp_verify">Welcome to ChatApp</string>
     <string name="enter_sms_code">Enter sms code</string>
-    <string name="edit_text_hint">------</string>
+    <string name="edit_text_hint" translatable="false">------</string>
     <string name="done_text_button">Done</string>
     <string name="enter_your_number_login_hint">Enter your number</string>
     <string name="chatapp_splash_screen">ChatApp</string>
@@ -29,4 +29,6 @@
     <string name="select_paticipants_text">Select Paticipants</string>
     <string name="name_in_receive_message">Name</string>
     <string name="user_profile_view">User Profile</string>
+    <string name="chats_view_pager">Chats</string>
+    <string name="groups_view_pager">Groups</string>
 </resources>
