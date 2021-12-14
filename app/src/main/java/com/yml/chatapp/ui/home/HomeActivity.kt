@@ -42,10 +42,10 @@ class HomeActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when(position) {
                 0 -> {
-                    tab.text = "Chats"
+                    tab.text = getString(R.string.chats_view_pager)
                 }
                 1 -> {
-                    tab.text = "Groups"
+                    tab.text = getString(R.string.groups_view_pager)
                 }
             }
         }.attach()
