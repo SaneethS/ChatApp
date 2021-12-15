@@ -3,8 +3,7 @@ package com.yml.chatapp.firebase.firestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.yml.chatapp.common.CHATS
-import com.yml.chatapp.common.MESSAGES
+import com.yml.chatapp.common.*
 import com.yml.chatapp.ui.wrapper.Message
 import com.yml.chatapp.ui.wrapper.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,7 +50,7 @@ class FirebaseChatDB {
             val chatId = chatId(senderId, receiverId)
 
             val ref = fireStore.collection(CHATS).document(chatId)
-                .collection(MESSAGES).orderBy("dateCreated",Query.Direction.DESCENDING)
+                .collection(MESSAGES).orderBy(MESSAGE_DATE_CREATED,Query.Direction.DESCENDING)
                 .limit(10).addSnapshotListener { value, error ->
                     if(error != null) {
                         this.trySend(null).isFailure
@@ -62,10 +61,10 @@ class FirebaseChatDB {
                             for(item in value.documents) {
                                 val data = item.data as HashMap<*,*>
                                 val message = Message(
-                                    senderId = data["senderId"].toString(),
-                                    dateCreated = data["dateCreated"] as Long,
-                                    content = data["content"].toString(),
-                                    contentType = data["contentType"].toString()
+                                    senderId = data[MESSAGE_SENDER_ID].toString(),
+                                    dateCreated = data[MESSAGE_DATE_CREATED] as Long,
+                                    content = data[MESSAGE_CONTENT].toString(),
+                                    contentType = data[MESSAGE_CONTENT_TYPE].toString()
                                 )
                                 messageList.add(message)
                             }
@@ -84,7 +83,7 @@ class FirebaseChatDB {
             val chatId = chatId(currentUser!!.fUid, foreignUser!!.fUid)
 
             fireStore.collection(CHATS).document(chatId)
-                .collection(MESSAGES).orderBy("dateCreated", Query.Direction.DESCENDING)
+                .collection(MESSAGES).orderBy(MESSAGE_DATE_CREATED, Query.Direction.DESCENDING)
                 .startAfter(offset)
                 .limit(10).get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -92,10 +91,10 @@ class FirebaseChatDB {
                         for (item in task.result?.documents!!) {
                             val data = item.data as HashMap<*, *>
                             val message = Message(
-                                senderId = data["senderId"].toString(),
-                                dateCreated = data["dateCreated"] as Long,
-                                content = data["content"].toString(),
-                                contentType = data["contentType"].toString()
+                                senderId = data[MESSAGE_SENDER_ID].toString(),
+                                dateCreated = data[MESSAGE_DATE_CREATED] as Long,
+                                content = data[MESSAGE_CONTENT].toString(),
+                                contentType = data[MESSAGE_CONTENT_TYPE].toString()
                             )
                             messageList.add(message)
                         }

@@ -59,10 +59,10 @@ class VerifyFragment: Fragment(R.layout.fragment_verify) {
                 val token = context?.let { it1 -> SharedPref.getInstance(it1).getFBToken() }
                 if (uid != null && token != null) {
                     verifyViewModel.addUserTokenToDb(uid, token)
+                    sharedViewModel.setGoToHomeActivity(true)
                 }
-                sharedViewModel.setGoToHomeActivity(true)
             }else {
-                Toast.makeText(requireContext(),"Invalid OTP",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Invalid OTP",Toast.LENGTH_LONG).show()
             }
         }
     }

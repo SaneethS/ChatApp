@@ -4,9 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.yml.chatapp.common.CHATS
-import com.yml.chatapp.common.GROUPS
-import com.yml.chatapp.common.MESSAGES
+import com.yml.chatapp.common.*
 import com.yml.chatapp.data.model.DbGroup
 import com.yml.chatapp.ui.wrapper.Group
 import com.yml.chatapp.ui.wrapper.Message
@@ -58,9 +56,9 @@ class FirebaseGroupDB {
                             for (item in value.documents) {
                                 val groupHashMap = item.data as HashMap<*, *>
                                 val group = Group(
-                                    groupName = groupHashMap["groupName"].toString(),
-                                    image = groupHashMap["image"].toString(),
-                                    participants = groupHashMap["participants"] as ArrayList<String>,
+                                    groupName = groupHashMap[GROUP_NAME].toString(),
+                                    image = groupHashMap[GROUP_IMAGE].toString(),
+                                    participants = groupHashMap[GROUP_PARTICIPANTS] as ArrayList<String>,
                                     groupId = item.id
                                 )
                                 groupList.add(group)
@@ -100,7 +98,7 @@ class FirebaseGroupDB {
 
             val ref = fireStore.collection(GROUPS).document(group.groupId)
                 .collection(MESSAGES).orderBy(
-                    "dateCreated",
+                    MESSAGE_DATE_CREATED,
                     Query.Direction.DESCENDING
                 ).limit(16).addSnapshotListener { value, error ->
                     if (error != null) {
@@ -112,10 +110,10 @@ class FirebaseGroupDB {
                             for (item in value.documents) {
                                 val data = item.data as HashMap<*, *>
                                 val message = Message(
-                                    senderId = data["senderId"].toString(),
-                                    dateCreated = data["dateCreated"] as Long,
-                                    content = data["content"].toString(),
-                                    contentType = data["contentType"].toString()
+                                    senderId = data[MESSAGE_SENDER_ID].toString(),
+                                    dateCreated = data[MESSAGE_DATE_CREATED] as Long,
+                                    content = data[MESSAGE_CONTENT].toString(),
+                                    contentType = data[MESSAGE_CONTENT_TYPE].toString()
                                 )
                                 messageList.add(message)
                             }
@@ -134,7 +132,7 @@ class FirebaseGroupDB {
             Log.i("Group Db", "Control is here")
             fireStore.collection(GROUPS).document(group.groupId)
                 .collection(MESSAGES).orderBy(
-                    "dateCreated",
+                    MESSAGE_DATE_CREATED,
                     Query.Direction.DESCENDING
                 )
                 .startAfter(offset).limit(10).get().addOnCompleteListener { task ->
@@ -143,10 +141,10 @@ class FirebaseGroupDB {
                         for (item in task.result?.documents!!) {
                             val data = item.data as HashMap<*, *>
                             val message = Message(
-                                senderId = data["senderId"].toString(),
-                                dateCreated = data["dateCreated"] as Long,
-                                content = data["content"].toString(),
-                                contentType = data["contentType"].toString()
+                                senderId = data[MESSAGE_SENDER_ID].toString(),
+                                dateCreated = data[MESSAGE_DATE_CREATED] as Long,
+                                content = data[MESSAGE_CONTENT].toString(),
+                                contentType = data[MESSAGE_CONTENT_TYPE].toString()
                             )
                             messageList.add(message)
                         }
