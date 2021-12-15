@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -140,9 +139,9 @@ class ChatMessageActivity : AppCompatActivity() {
             val imageUri = Uri.parse(imageUriString)
             val inputStream = contentResolver.openInputStream(imageUri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, baos)
-            val byteArray = baos.toByteArray()
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
             chatMessageViewModel.sendImageMessage(currentUser!!.fUid, foreignUser!!.fUid, byteArray)
         }
     }

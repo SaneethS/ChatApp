@@ -2,9 +2,7 @@ package com.yml.chatapp.firebase.firestore
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.yml.chatapp.common.FIREBASE_TOKEN
-import com.yml.chatapp.common.USERS
-import com.yml.chatapp.common.Util
+import com.yml.chatapp.common.*
 import com.yml.chatapp.data.model.DbUser
 import com.yml.chatapp.ui.wrapper.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -85,9 +83,9 @@ class FirebaseUserDB {
 
     suspend fun updateUserInDb(user: User): Boolean {
         val userMap = mapOf(
-            "name" to user.name,
-            "status" to user.status,
-            "image" to  user.image
+            USER_NAME to user.name,
+            USER_STATUS to user.status,
+            USER_IMAGE to  user.image
         )
         return suspendCoroutine { callback ->
             fireStore.collection(USERS).document(user.fUid).update(userMap)
@@ -118,12 +116,12 @@ class FirebaseUserDB {
                         for (item in value.documents) {
                             val userHashMap = item.data as HashMap<*, *>
                             val user = User(
-                                name = userHashMap["name"].toString(),
-                                phoneNo = userHashMap["phoneNo"].toString(),
-                                status = userHashMap["status"].toString(),
+                                name = userHashMap[USER_NAME].toString(),
+                                phoneNo = userHashMap[PHONE_NO].toString(),
+                                status = userHashMap[USER_STATUS].toString(),
                                 fUid = item.id,
-                                image = userHashMap["image"].toString(),
-                                firebaseToken = userHashMap["firebaseToken"].toString()
+                                image = userHashMap[USER_IMAGE].toString(),
+                                firebaseToken = userHashMap[FIREBASE_TOKEN].toString()
                             )
                             userList.add(user)
                         }

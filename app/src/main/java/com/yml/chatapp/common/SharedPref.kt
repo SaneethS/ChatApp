@@ -29,5 +29,4 @@ class SharedPref(var context: Context) {
         editor.remove(USER_ID)
         editor.apply()
     }
-
 }

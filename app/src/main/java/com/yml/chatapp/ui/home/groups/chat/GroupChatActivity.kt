@@ -75,9 +75,9 @@ class GroupChatActivity : AppCompatActivity() {
             val imageUri = Uri.parse(imageUriString)
             val inputStream = contentResolver.openInputStream(imageUri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, baos)
-            val byteArray = baos.toByteArray()
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
             group?.let { groupChatViewModel.setGroupImageToDb(senderId, byteArray, it) }
         }
     }

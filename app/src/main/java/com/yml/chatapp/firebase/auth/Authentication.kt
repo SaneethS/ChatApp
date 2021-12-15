@@ -64,7 +64,6 @@ object Authentication {
     }
 
     fun signOut() {
-//        SharedPref.getInstance(context).clearAll()
         auth.signOut()
     }
 }

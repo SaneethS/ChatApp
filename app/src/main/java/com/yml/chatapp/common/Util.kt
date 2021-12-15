@@ -6,11 +6,11 @@ object Util {
 
     fun userInfoFromHashMap(user: HashMap<*,*>): DbUser {
         return DbUser(
-            phoneNo = user["phoneNo"].toString(),
-            name = user["name"].toString(),
-            status = user["status"].toString(),
-            image = user["image"].toString(),
-            firebaseToken = user["firebaseToken"].toString()
+            phoneNo = user[PHONE_NO].toString(),
+            name = user[USER_NAME].toString(),
+            status = user[USER_STATUS].toString(),
+            image = user[USER_IMAGE].toString(),
+            firebaseToken = user[FIREBASE_TOKEN].toString()
         )
     }
 }
